@@ -1,0 +1,564 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9810E90B1E712EF200B6ABA0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9810E90A1E712EF200B6ABA0 /* main.m */; };
+		9810E90E1E712EF200B6ABA0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9810E90D1E712EF200B6ABA0 /* AppDelegate.m */; };
+		9810E9111E712EF200B6ABA0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9810E9101E712EF200B6ABA0 /* ViewController.m */; };
+		9810E9141E712EF200B6ABA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9810E9121E712EF200B6ABA0 /* Main.storyboard */; };
+		9810E9161E712EF200B6ABA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9810E9151E712EF200B6ABA0 /* Assets.xcassets */; };
+		9810E9191E712EF200B6ABA0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9810E9171E712EF200B6ABA0 /* LaunchScreen.storyboard */; };
+		9810E9241E712EF200B6ABA0 /* MRAlertControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9810E9231E712EF200B6ABA0 /* MRAlertControllerTests.m */; };
+		9810E92F1E712EF200B6ABA0 /* MRAlertControllerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9810E92E1E712EF200B6ABA0 /* MRAlertControllerUITests.m */; };
+		9810E9431E71300300B6ABA0 /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 9810E9421E71300300B6ABA0 /* UIColor+Hex.m */; };
+		9810E9471E7136D500B6ABA0 /* MRAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9810E9451E7136D500B6ABA0 /* MRAlertController.m */; };
+		9810E9481E7136D500B6ABA0 /* MRAlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9810E9461E7136D500B6ABA0 /* MRAlertController.xib */; };
+		9810E94E1E72523E00B6ABA0 /* UIButton+Style.m in Sources */ = {isa = PBXBuildFile; fileRef = 9810E94D1E72523E00B6ABA0 /* UIButton+Style.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9810E9201E712EF200B6ABA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9810E8FE1E712EF200B6ABA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9810E9051E712EF200B6ABA0;
+			remoteInfo = MRAlertController;
+		};
+		9810E92B1E712EF200B6ABA0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9810E8FE1E712EF200B6ABA0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9810E9051E712EF200B6ABA0;
+			remoteInfo = MRAlertController;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9810E9061E712EF200B6ABA0 /* MRAlertController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MRAlertController.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9810E90A1E712EF200B6ABA0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9810E90C1E712EF200B6ABA0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		9810E90D1E712EF200B6ABA0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		9810E90F1E712EF200B6ABA0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		9810E9101E712EF200B6ABA0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		9810E9131E712EF200B6ABA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9810E9151E712EF200B6ABA0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9810E9181E712EF200B6ABA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9810E91A1E712EF200B6ABA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9810E91F1E712EF200B6ABA0 /* MRAlertControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MRAlertControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9810E9231E712EF200B6ABA0 /* MRAlertControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MRAlertControllerTests.m; sourceTree = "<group>"; };
+		9810E9251E712EF200B6ABA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9810E92A1E712EF200B6ABA0 /* MRAlertControllerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MRAlertControllerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9810E92E1E712EF200B6ABA0 /* MRAlertControllerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MRAlertControllerUITests.m; sourceTree = "<group>"; };
+		9810E9301E712EF200B6ABA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9810E9411E71300300B6ABA0 /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
+		9810E9421E71300300B6ABA0 /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		9810E9441E7136D500B6ABA0 /* MRAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAlertController.h; sourceTree = "<group>"; };
+		9810E9451E7136D500B6ABA0 /* MRAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRAlertController.m; sourceTree = "<group>"; };
+		9810E9461E7136D500B6ABA0 /* MRAlertController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MRAlertController.xib; sourceTree = "<group>"; };
+		9810E94C1E72523E00B6ABA0 /* UIButton+Style.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Style.h"; sourceTree = "<group>"; };
+		9810E94D1E72523E00B6ABA0 /* UIButton+Style.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Style.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9810E9031E712EF200B6ABA0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9810E91C1E712EF200B6ABA0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9810E9271E712EF200B6ABA0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9810E8FD1E712EF200B6ABA0 = {
+			isa = PBXGroup;
+			children = (
+				9810E9081E712EF200B6ABA0 /* MRAlertController */,
+				9810E9221E712EF200B6ABA0 /* MRAlertControllerTests */,
+				9810E92D1E712EF200B6ABA0 /* MRAlertControllerUITests */,
+				9810E9071E712EF200B6ABA0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9810E9071E712EF200B6ABA0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9810E9061E712EF200B6ABA0 /* MRAlertController.app */,
+				9810E91F1E712EF200B6ABA0 /* MRAlertControllerTests.xctest */,
+				9810E92A1E712EF200B6ABA0 /* MRAlertControllerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9810E9081E712EF200B6ABA0 /* MRAlertController */ = {
+			isa = PBXGroup;
+			children = (
+				9810E90C1E712EF200B6ABA0 /* AppDelegate.h */,
+				9810E90D1E712EF200B6ABA0 /* AppDelegate.m */,
+				9810E9441E7136D500B6ABA0 /* MRAlertController.h */,
+				9810E9451E7136D500B6ABA0 /* MRAlertController.m */,
+				9810E9461E7136D500B6ABA0 /* MRAlertController.xib */,
+				9810E90F1E712EF200B6ABA0 /* ViewController.h */,
+				9810E9101E712EF200B6ABA0 /* ViewController.m */,
+				9810E9121E712EF200B6ABA0 /* Main.storyboard */,
+				9810E9151E712EF200B6ABA0 /* Assets.xcassets */,
+				9810E9171E712EF200B6ABA0 /* LaunchScreen.storyboard */,
+				9810E91A1E712EF200B6ABA0 /* Info.plist */,
+				9810E9091E712EF200B6ABA0 /* Supporting Files */,
+				9810E9411E71300300B6ABA0 /* UIColor+Hex.h */,
+				9810E9421E71300300B6ABA0 /* UIColor+Hex.m */,
+				9810E94C1E72523E00B6ABA0 /* UIButton+Style.h */,
+				9810E94D1E72523E00B6ABA0 /* UIButton+Style.m */,
+			);
+			path = MRAlertController;
+			sourceTree = "<group>";
+		};
+		9810E9091E712EF200B6ABA0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9810E90A1E712EF200B6ABA0 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9810E9221E712EF200B6ABA0 /* MRAlertControllerTests */ = {
+			isa = PBXGroup;
+			children = (
+				9810E9231E712EF200B6ABA0 /* MRAlertControllerTests.m */,
+				9810E9251E712EF200B6ABA0 /* Info.plist */,
+			);
+			path = MRAlertControllerTests;
+			sourceTree = "<group>";
+		};
+		9810E92D1E712EF200B6ABA0 /* MRAlertControllerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9810E92E1E712EF200B6ABA0 /* MRAlertControllerUITests.m */,
+				9810E9301E712EF200B6ABA0 /* Info.plist */,
+			);
+			path = MRAlertControllerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9810E9051E712EF200B6ABA0 /* MRAlertController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9810E9331E712EF200B6ABA0 /* Build configuration list for PBXNativeTarget "MRAlertController" */;
+			buildPhases = (
+				9810E9021E712EF200B6ABA0 /* Sources */,
+				9810E9031E712EF200B6ABA0 /* Frameworks */,
+				9810E9041E712EF200B6ABA0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MRAlertController;
+			productName = MRAlertController;
+			productReference = 9810E9061E712EF200B6ABA0 /* MRAlertController.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9810E91E1E712EF200B6ABA0 /* MRAlertControllerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9810E9361E712EF200B6ABA0 /* Build configuration list for PBXNativeTarget "MRAlertControllerTests" */;
+			buildPhases = (
+				9810E91B1E712EF200B6ABA0 /* Sources */,
+				9810E91C1E712EF200B6ABA0 /* Frameworks */,
+				9810E91D1E712EF200B6ABA0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9810E9211E712EF200B6ABA0 /* PBXTargetDependency */,
+			);
+			name = MRAlertControllerTests;
+			productName = MRAlertControllerTests;
+			productReference = 9810E91F1E712EF200B6ABA0 /* MRAlertControllerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9810E9291E712EF200B6ABA0 /* MRAlertControllerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9810E9391E712EF200B6ABA0 /* Build configuration list for PBXNativeTarget "MRAlertControllerUITests" */;
+			buildPhases = (
+				9810E9261E712EF200B6ABA0 /* Sources */,
+				9810E9271E712EF200B6ABA0 /* Frameworks */,
+				9810E9281E712EF200B6ABA0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9810E92C1E712EF200B6ABA0 /* PBXTargetDependency */,
+			);
+			name = MRAlertControllerUITests;
+			productName = MRAlertControllerUITests;
+			productReference = 9810E92A1E712EF200B6ABA0 /* MRAlertControllerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9810E8FE1E712EF200B6ABA0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = Yaw;
+				TargetAttributes = {
+					9810E9051E712EF200B6ABA0 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 6FE3NQT9SX;
+						ProvisioningStyle = Automatic;
+					};
+					9810E91E1E712EF200B6ABA0 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 6FE3NQT9SX;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 9810E9051E712EF200B6ABA0;
+					};
+					9810E9291E712EF200B6ABA0 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 6FE3NQT9SX;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 9810E9051E712EF200B6ABA0;
+					};
+				};
+			};
+			buildConfigurationList = 9810E9011E712EF200B6ABA0 /* Build configuration list for PBXProject "MRAlertController" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9810E8FD1E712EF200B6ABA0;
+			productRefGroup = 9810E9071E712EF200B6ABA0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9810E9051E712EF200B6ABA0 /* MRAlertController */,
+				9810E91E1E712EF200B6ABA0 /* MRAlertControllerTests */,
+				9810E9291E712EF200B6ABA0 /* MRAlertControllerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9810E9041E712EF200B6ABA0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9810E9191E712EF200B6ABA0 /* LaunchScreen.storyboard in Resources */,
+				9810E9481E7136D500B6ABA0 /* MRAlertController.xib in Resources */,
+				9810E9161E712EF200B6ABA0 /* Assets.xcassets in Resources */,
+				9810E9141E712EF200B6ABA0 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9810E91D1E712EF200B6ABA0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9810E9281E712EF200B6ABA0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9810E9021E712EF200B6ABA0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9810E94E1E72523E00B6ABA0 /* UIButton+Style.m in Sources */,
+				9810E9471E7136D500B6ABA0 /* MRAlertController.m in Sources */,
+				9810E9111E712EF200B6ABA0 /* ViewController.m in Sources */,
+				9810E9431E71300300B6ABA0 /* UIColor+Hex.m in Sources */,
+				9810E90E1E712EF200B6ABA0 /* AppDelegate.m in Sources */,
+				9810E90B1E712EF200B6ABA0 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9810E91B1E712EF200B6ABA0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9810E9241E712EF200B6ABA0 /* MRAlertControllerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9810E9261E712EF200B6ABA0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9810E92F1E712EF200B6ABA0 /* MRAlertControllerUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9810E9211E712EF200B6ABA0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9810E9051E712EF200B6ABA0 /* MRAlertController */;
+			targetProxy = 9810E9201E712EF200B6ABA0 /* PBXContainerItemProxy */;
+		};
+		9810E92C1E712EF200B6ABA0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9810E9051E712EF200B6ABA0 /* MRAlertController */;
+			targetProxy = 9810E92B1E712EF200B6ABA0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9810E9121E712EF200B6ABA0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9810E9131E712EF200B6ABA0 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9810E9171E712EF200B6ABA0 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9810E9181E712EF200B6ABA0 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9810E9311E712EF200B6ABA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9810E9321E712EF200B6ABA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9810E9341E712EF200B6ABA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 6FE3NQT9SX;
+				INFOPLIST_FILE = MRAlertController/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mozatloops.MRAlertController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9810E9351E712EF200B6ABA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 6FE3NQT9SX;
+				INFOPLIST_FILE = MRAlertController/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mozatloops.MRAlertController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		9810E9371E712EF200B6ABA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 6FE3NQT9SX;
+				INFOPLIST_FILE = MRAlertControllerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mozatloops.MRAlertControllerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MRAlertController.app/MRAlertController";
+			};
+			name = Debug;
+		};
+		9810E9381E712EF200B6ABA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 6FE3NQT9SX;
+				INFOPLIST_FILE = MRAlertControllerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mozatloops.MRAlertControllerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MRAlertController.app/MRAlertController";
+			};
+			name = Release;
+		};
+		9810E93A1E712EF200B6ABA0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 6FE3NQT9SX;
+				INFOPLIST_FILE = MRAlertControllerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mozatloops.MRAlertControllerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MRAlertController;
+			};
+			name = Debug;
+		};
+		9810E93B1E712EF200B6ABA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 6FE3NQT9SX;
+				INFOPLIST_FILE = MRAlertControllerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mozatloops.MRAlertControllerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = MRAlertController;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9810E9011E712EF200B6ABA0 /* Build configuration list for PBXProject "MRAlertController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9810E9311E712EF200B6ABA0 /* Debug */,
+				9810E9321E712EF200B6ABA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9810E9331E712EF200B6ABA0 /* Build configuration list for PBXNativeTarget "MRAlertController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9810E9341E712EF200B6ABA0 /* Debug */,
+				9810E9351E712EF200B6ABA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9810E9361E712EF200B6ABA0 /* Build configuration list for PBXNativeTarget "MRAlertControllerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9810E9371E712EF200B6ABA0 /* Debug */,
+				9810E9381E712EF200B6ABA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9810E9391E712EF200B6ABA0 /* Build configuration list for PBXNativeTarget "MRAlertControllerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9810E93A1E712EF200B6ABA0 /* Debug */,
+				9810E93B1E712EF200B6ABA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9810E8FE1E712EF200B6ABA0 /* Project object */;
+}
