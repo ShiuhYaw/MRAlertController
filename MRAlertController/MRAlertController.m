@@ -10,7 +10,6 @@
 #import "UIColor+Hex.h"
 #import "UIButton+Style.h"
 
-
 #define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double)568) < DBL_EPSILON)
 
 typedef void (^Handler)(MRAlertAction *action);
@@ -36,6 +35,7 @@ typedef void (^Handler)(MRAlertAction *action);
     
     MRAlertAction *alertAction = [[[self class] allocWithZone:zone] init];
     alertAction.titleString = self.titleString;
+    alertAction.handler = self.handler;
     return alertAction;
 }
 
@@ -62,6 +62,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *imageSuperview;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIView *messageView;
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet UIView *alertTextView;
 @property (weak, nonatomic) IBOutlet UITextField *alertTextField;
@@ -70,30 +71,61 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 @property (weak, nonatomic) IBOutlet UIView *buttonSeparatorView;
 @property (weak, nonatomic) IBOutlet UIView *sendView;
 @property (weak, nonatomic) IBOutlet UIView *cancelView;
+@property (assign, nonatomic) MRAlertControllerStyle style;
 
+#pragma mark -- Alert View Contraints
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertViewCenterYConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertViewCenterXContraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertViewTrailingContraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertViewLeadingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertViewWidthConstraint;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertViewLeadingConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertViewTrailingConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textFieldViewTopConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textFieldViewBottomConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *textFieldHeightConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *titleViewBottomConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *messageLabelTopConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *messageLabelBottonConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageSuperViewTopConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *centerYConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *singleButtonLeadingConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *multipleButtonLeadingConstraint;
+#pragma mark -- Alert Title View Contraints
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertTitleViewTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertTitleViewLeadingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertTitleViewTrailingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertTitleViewImageViewBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertTitleViewMessageViewBottomConstraint;
 
-@property (assign, nonatomic) MRAlertControllerStyle style;
+#pragma mark -- Alert Title Label Contraints
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertTitleLableTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertTitleLableButtonConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertTitleLableLeadingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertTitleLableTrailingConstraint;
+
+#pragma mark -- Alert Image View Contraints
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertImageViewCenterXConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertImageViewMessageViewBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertImageViewTextFieldViewBottomConstraint;
+
+#pragma mark -- Alert Message View Contraints
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertMessageViewLeadingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertMessageViewTrailingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertMessageViewTextFieldViewBottomConstaint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertMessageViewActionViewBottomConstraint;
+
+#pragma mark -- Alert Text Field View Contraints
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertTextFieldViewLeadingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertTextFieldViewTrailingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertTextFieldViewBottomConstraint;
+
+#pragma mark -- Alert Action View Contraints
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertActionViewLeadingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertActionViewTrailingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertActionViewBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertActionViewHeightConstraint;
+
+#pragma mark -- Alert Action Send View Contraints
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertActionSendViewLeadingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertMultiActionSendViewLeadingConstraint;
+
 @property (strong, nonatomic) NSMutableArray<UITextField *> *mutableTextFields;
 @property (strong, nonatomic) NSMutableArray<UIAlertAction *> *mutableActions;
 @property (nonatomic, copy, nullable) ConfigurationHandler configurationHandler;
 @property (nonatomic, copy, nullable) ImageConfigurationHandler imageConfigurationHandler;
 
-
 - (void)configureInterfaceWithStype:(MRAlertControllerStyle)style;
+
 @end
 
 @implementation MRAlertController
@@ -104,7 +136,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 
 + (instancetype)alertWithTitle:(nullable NSString *)title message:(nullable NSString *)message preferredStyle:(MRAlertControllerStyle)preferredStyle {
     
-    MRAlertController *controller = [[MRAlertController alloc]initWithNibName:@"MRAlertController" bundle:[NSBundle mainBundle]];
+    MRAlertController *controller = [[MRAlertController alloc]initWithNibName:NSStringFromClass([MRAlertController class]) bundle:[NSBundle mainBundle]];
     controller.title = title;
     controller.message = message;
     controller.style = preferredStyle;
@@ -133,6 +165,8 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
         
         self.mutableTextFields = [NSMutableArray array];
     }
+    self.alertTextView.layer.borderColor = [UIColor colorWithHexString:@"#e2e2e2"].CGColor;
+    self.alertTextView.layer.borderWidth = 0.5f;
     self.configurationHandler = configurationHandler;
 }
 
@@ -152,98 +186,102 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 
 - (void)configureInterfaceWithStype:(MRAlertControllerStyle)style {
     
-    
-    self.constant = self.centerYConstraint.constant;
+    self.constant = self.alertViewCenterYConstraint.constant;
     self.alertView.layer.cornerRadius = 10.0f;
     self.titleLabel.text = self.title;
     self.messageLabel.text = self.message;
-
+    
     switch (self.preferredStyle) {
         case MRAlertControllerStyleAlert:
             self.alertTextView.hidden = true;
-            [self.alertTextView removeConstraints:self.alertTextView.constraints];
             self.imageSuperview.hidden = true;
-            [self.imageSuperview removeConstraints:self.imageSuperview.constraints];
-            self.imageView.hidden = true;
-            [self.imageView removeConstraints:self.imageView.constraints];
-            self.textFieldViewBottomConstraint.constant = 0;
-            self.titleViewBottomConstraint.active = true;
-            self.messageLabelBottonConstraint.active = true;
+            self.alertTitleViewMessageViewBottomConstraint.priority = 999;
+            self.alertTitleViewImageViewBottomConstraint.priority = 250;
+            self.alertImageViewMessageViewBottomConstraint.priority = 250;
+            self.alertMessageViewActionViewBottomConstraint.priority = 999;
+            self.alertMessageViewTextFieldViewBottomConstaint.priority = 250;
+            if (self.title == nil) {
+                self.alertTitleLableTopConstraint.constant = 0;
+            }
+            if (self.title.length < 1) {
+                self.alertTitleLableTopConstraint.constant = 0;
+            }
+            if (self.message == nil) {
+                self.alertTitleViewMessageViewBottomConstraint.constant = 0;
+            }
+            if (self.message.length < 1) {
+                self.alertTitleViewMessageViewBottomConstraint.constant = 0;
+            }
             break;
         case MRAlertControllerStyleAlertImage:
             self.alertTextView.hidden = true;
-            [self.alertTextView removeConstraints:self.alertTextView.constraints];
-            self.imageSuperview.hidden = false;
-            self.textFieldViewBottomConstraint.constant = 0;
-            self.textFieldHeightConstraint.priority = 250;
-            self.titleViewBottomConstraint.active = false;
-            self.messageLabelBottonConstraint.active = false;
-            if (title.length < 1) {
-                self.imageSuperViewTopConstraint.constant = 0.0f;
+            self.alertTitleViewImageViewBottomConstraint.priority = 999;
+            self.alertTitleViewMessageViewBottomConstraint.priority = 250;
+            self.alertImageViewMessageViewBottomConstraint.priority = 999;
+            self.alertMessageViewActionViewBottomConstraint.priority = 999;
+            self.alertMessageViewTextFieldViewBottomConstaint.priority = 250;
+            self.alertTextFieldViewBottomConstraint.priority = 250;
+            if (self.title == nil) {
+                self.alertTitleLableTopConstraint.constant = 0;
+            }
+            if (self.title.length < 1) {
+                self.alertTitleLableTopConstraint.constant = 0;
+            }
+            if (self.message == nil) {
+                self.alertImageViewMessageViewBottomConstraint.constant = 0;
             }
             if (self.message.length < 1) {
-                self.textFieldViewTopConstraint.constant = 0.0f;
-                self.messageLabelTopConstraint.constant = 24.0f;
+                self.alertImageViewMessageViewBottomConstraint.constant = 0;
             }
             break;
         case MRAlertControllerStyleAlertImageTextField:
-            self.alertTextView.hidden = false;
-            self.imageSuperview.hidden = false;
-            self.textFieldViewBottomConstraint.constant = 24.5;
-            self.textFieldHeightConstraint.constant = 40.0;
-            self.titleViewBottomConstraint.active = false;
-            self.alertTextView.layer.borderWidth = 0.5f;
-            self.alertTextView.layer.borderColor = [UIColor colorWithRed:(226/255.0f) green:(226/255.0f) blue:(226/255.0f) alpha:1.0f].CGColor;
-            self.alertTextField.textColor = [UIColor colorWithHexString:@"#2c2c30"];
-            self.messageLabelBottonConstraint.active = false;
-            if (self.message.length < 1) {
-                self.textFieldViewTopConstraint.constant = 0.0f;
-                self.messageLabelTopConstraint.constant = 24.0f;
+            self.alertMessageViewActionViewBottomConstraint.priority = 250;
+            self.alertMessageViewTextFieldViewBottomConstaint.priority = 999;
+            if (self.title == nil) {
+                self.alertTitleLableTopConstraint.constant = 0;
             }
-            if (title.length < 1) {
-                self.imageSuperViewTopConstraint.constant = 0.0f;
+            if (self.title.length < 1) {
+                self.alertTitleLableTopConstraint.constant = 0;
+            }
+            if (self.message == nil) {
+                self.alertImageViewTextFieldViewBottomConstraint.priority = 999;
+                self.alertImageViewMessageViewBottomConstraint.priority = 250;
+                self.alertMessageViewTextFieldViewBottomConstaint.priority = 250;
+            }
+            if (self.message.length < 1) {
+                self.alertImageViewTextFieldViewBottomConstraint.priority = 999;
+                self.alertImageViewMessageViewBottomConstraint.priority = 250;
+                self.alertMessageViewTextFieldViewBottomConstaint.priority = 250;
             }
             break;
         case MRAlertControllerStyleAlertTextField:
-            self.alertTextView.hidden = false;
             self.imageSuperview.hidden = true;
-            [self.imageSuperview removeConstraints:self.imageSuperview.constraints];
-            
-            self.textFieldViewBottomConstraint.constant = 24.5;
-            self.textFieldHeightConstraint.constant = 40.0;
-            self.titleViewBottomConstraint.active = true;
-            self.alertTextView.layer.borderWidth = 0.5f;
-            self.alertTextView.layer.borderColor = [UIColor colorWithRed:(226/255.0f) green:(226/255.0f) blue:(226/255.0f) alpha:1.0f].CGColor;
-            self.alertTextField.textColor = [UIColor colorWithHexString:@"#2c2c30"];
-            self.messageLabelBottonConstraint.active = false;
+            self.alertTitleViewMessageViewBottomConstraint.priority = 999;
+            self.alertTitleViewImageViewBottomConstraint.priority = 250;
+            if (self.title == nil) {
+                self.alertTitleLableTopConstraint.constant = 0;
+            }
+            if (self.title.length < 1) {
+                self.alertTitleLableTopConstraint.constant = 0;
+            }
+            if (self.message == nil) {
+                self.alertTitleViewMessageViewBottomConstraint.constant = 0;
+            }
             if (self.message.length < 1) {
-                self.textFieldViewTopConstraint.constant = 0.0f;
-                self.messageLabelTopConstraint.constant = 24.0f;
+                self.alertTitleViewMessageViewBottomConstraint.constant = 0;
             }
             break;
         default:
             break;
     }
-    if (self.mutableActions && self.mutableActions.count > 0) {
-        if (self.mutableActions.count > 1) {
-            [self.cancelButton setTitle:((MRAlertAction *)self.mutableActions[1]).title forState:UIControlStateNormal];
-            [self.cancelButton setBackgroundColor:[UIColor colorWithHexString:@"#eeeeee"] forState:UIControlStateHighlighted];
-        }
-        [self.sendButton setTitle:((MRAlertAction *)self.mutableActions[0]).title forState:UIControlStateNormal];
-        [self.sendButton setBackgroundColor:[UIColor colorWithHexString:@"#eeeeee"] forState:UIControlStateHighlighted];
-        if (self.mutableActions.count < 2) {
-            
-            self.singleButtonLeadingConstraint.priority = 999;
-        }
-    }
     if IS_IPHONE_5 {
         self.alertViewLeadingConstraint.priority = 999;
-        self.alertViewTrailingConstraint.priority = 999;
+        self.alertViewTrailingContraint.priority = 999;
         self.alertViewWidthConstraint.priority = 750;
     }
     else {
         self.alertViewLeadingConstraint.priority = 750;
-        self.alertViewTrailingConstraint.priority = 750;
+        self.alertViewTrailingContraint.priority = 750;
         self.alertViewWidthConstraint.priority = 999;
     }
 }
@@ -273,6 +311,11 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     
     [super viewDidLoad];
     [self configureInterfaceWithStype:self.style];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
     if (self.configurationHandler) {
         
         if (self.alertTextField) {
@@ -285,11 +328,19 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
         
         self.imageConfigurationHandler(self.imageView);
     }
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
+    if (self.mutableActions && self.mutableActions.count > 0) {
+        if (self.mutableActions.count > 1) {
+            [self.cancelButton setTitle:((MRAlertAction *)self.mutableActions[1]).title forState:UIControlStateNormal];
+            [self.cancelButton setBackgroundColor:[UIColor colorWithHexString:@"#eeeeee"] forState:UIControlStateHighlighted];
+        }
+        [self.sendButton setTitle:((MRAlertAction *)self.mutableActions[0]).title forState:UIControlStateNormal];
+        [self.sendButton setBackgroundColor:[UIColor colorWithHexString:@"#eeeeee"] forState:UIControlStateHighlighted];
+        if (self.mutableActions.count < 2) {
+            
+            self.alertActionSendViewLeadingConstraint.priority = 999;
+            self.alertMultiActionSendViewLeadingConstraint.priority = 250;
+        }
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -326,7 +377,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 
 - (IBAction)dismissButtonDidTapped:(UIButton *)sender {
     
-    self.centerYConstraint.constant = self.constant;
+    self.alertViewCenterYConstraint.constant = self.constant;
     [self.alertTextField resignFirstResponder];
     [self dismissViewControllerAnimated:false completion:^{
         
@@ -342,7 +393,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     
-    self.centerYConstraint.constant = self.centerYConstraint.constant - (self.alertView.frame.size.height / 2);
+    self.alertViewCenterYConstraint.constant = self.alertViewCenterYConstraint.constant - (self.alertView.frame.size.height / 2);
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
@@ -351,7 +402,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
-    self.centerYConstraint.constant = self.constant;
+    self.alertViewCenterYConstraint.constant = self.constant;
     [textField resignFirstResponder];
     if (self.mutableActions && self.mutableActions.count > 0) {
         MRAlertAction *action = (MRAlertAction *)self.mutableActions[0];

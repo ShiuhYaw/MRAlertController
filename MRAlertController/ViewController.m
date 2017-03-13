@@ -24,10 +24,9 @@
     
     [super viewDidAppear:animated];
     MRAlertController *alertController = [MRAlertController alertWithTitle:@"Information"
-                                                                   message:@""
-                                                            preferredStyle:MRAlertControllerStyleAlertImage];
+                                                                   message:@"Information Message"
+                                                            preferredStyle:MRAlertControllerStyleAlertImageTextField];
     MRAlertAction *sendAction = [MRAlertAction actionWithTitle:@"OK" handler:^(MRAlertAction * _Nonnull action) {
-       
         if (action) {
             UITextField *customizedMsgLabel = alertController.textFields.firstObject;
             NSLog(@"customizedMsgLabel: %@", customizedMsgLabel.text);
@@ -40,14 +39,15 @@
         }
     }];
     [alertController addAction:cancelAction];
+    
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         if (textField) {
-            textField.placeholder = @"Write Something cool!";
+            textField.placeholder = @"Something cool!";
         }
     }];
     [alertController addImageViewWithConfigurationHandler:^(UIImageView * _Nonnull imageView) {
         if (imageView) {
-            imageView.image = [UIImage imageNamed:@"icPrivilege"];
+            imageView.image = [UIImage imageNamed:@"bt_gp"];
         }
     }];
     [self presentViewController:alertController animated:false completion:^{

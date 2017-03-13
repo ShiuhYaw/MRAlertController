@@ -14,8 +14,8 @@ typedef NS_ENUM(NSInteger, MRAlertControllerStyle) {
     
     MRAlertControllerStyleAlert = 0,
     MRAlertControllerStyleAlertImage,
-    MRAlertControllerStyleAlertImageTextField,
     MRAlertControllerStyleAlertTextField,
+    MRAlertControllerStyleAlertImageTextField,
     
 } NS_ENUM_AVAILABLE_IOS(8_0);
 
