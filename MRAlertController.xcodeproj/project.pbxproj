@@ -21,6 +21,8 @@
 		9810E94E1E72523E00B6ABA0 /* UIButton+Style.m in Sources */ = {isa = PBXBuildFile; fileRef = 9810E94D1E72523E00B6ABA0 /* UIButton+Style.m */; };
 		988D59471E779EC40044490A /* MRAlertActionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 988D59451E779EC40044490A /* MRAlertActionCollectionViewCell.m */; };
 		988D59481E779EC40044490A /* MRAlertActionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 988D59461E779EC40044490A /* MRAlertActionCollectionViewCell.xib */; };
+		988D59511E77D19F0044490A /* MRAlertCustomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 988D594F1E77D19F0044490A /* MRAlertCustomCollectionViewCell.m */; };
+		988D59521E77D19F0044490A /* MRAlertCustomCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 988D59501E77D19F0044490A /* MRAlertCustomCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,9 @@
 		988D59441E779EC40044490A /* MRAlertActionCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAlertActionCollectionViewCell.h; sourceTree = "<group>"; };
 		988D59451E779EC40044490A /* MRAlertActionCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRAlertActionCollectionViewCell.m; sourceTree = "<group>"; };
 		988D59461E779EC40044490A /* MRAlertActionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MRAlertActionCollectionViewCell.xib; sourceTree = "<group>"; };
+		988D594E1E77D19F0044490A /* MRAlertCustomCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAlertCustomCollectionViewCell.h; sourceTree = "<group>"; };
+		988D594F1E77D19F0044490A /* MRAlertCustomCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRAlertCustomCollectionViewCell.m; sourceTree = "<group>"; };
+		988D59501E77D19F0044490A /* MRAlertCustomCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MRAlertCustomCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +129,9 @@
 				9810E9461E7136D500B6ABA0 /* MRAlertController.xib */,
 				988D59441E779EC40044490A /* MRAlertActionCollectionViewCell.h */,
 				988D59451E779EC40044490A /* MRAlertActionCollectionViewCell.m */,
+				988D594E1E77D19F0044490A /* MRAlertCustomCollectionViewCell.h */,
+				988D594F1E77D19F0044490A /* MRAlertCustomCollectionViewCell.m */,
+				988D59501E77D19F0044490A /* MRAlertCustomCollectionViewCell.xib */,
 				988D59461E779EC40044490A /* MRAlertActionCollectionViewCell.xib */,
 				9810E90F1E712EF200B6ABA0 /* ViewController.h */,
 				9810E9101E712EF200B6ABA0 /* ViewController.m */,
@@ -280,6 +288,7 @@
 				9810E9481E7136D500B6ABA0 /* MRAlertController.xib in Resources */,
 				9810E9161E712EF200B6ABA0 /* Assets.xcassets in Resources */,
 				9810E9141E712EF200B6ABA0 /* Main.storyboard in Resources */,
+				988D59521E77D19F0044490A /* MRAlertCustomCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +320,7 @@
 				9810E9431E71300300B6ABA0 /* UIColor+Hex.m in Sources */,
 				9810E90E1E712EF200B6ABA0 /* AppDelegate.m in Sources */,
 				9810E90B1E712EF200B6ABA0 /* main.m in Sources */,
+				988D59511E77D19F0044490A /* MRAlertCustomCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,7 +16,14 @@ typedef NS_ENUM(NSInteger, MRAlertControllerStyle) {
     MRAlertControllerStyleAlertImage,
     MRAlertControllerStyleAlertTextField,
     MRAlertControllerStyleAlertImageTextField,
+    MRAlertControllerStyleAlertCustom,
+
+} NS_ENUM_AVAILABLE_IOS(8_0);
+
+typedef NS_ENUM(NSInteger, MRAlertValueStyle) {
     
+    MRAlertValueStyleCoin = 0,
+    MRAlertValueStyleDiamond,
 } NS_ENUM_AVAILABLE_IOS(8_0);
 
 
@@ -29,12 +36,26 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MRAlertAction : NSObject <NSCopying>
 
 @end
 
+
+NS_CLASS_AVAILABLE_IOS(8_0) @interface MRAlertItem : NSObject <NSCopying>
+
++ (instancetype)actionWithTitle:(nullable NSString *)title value:(nullable NSString *)value style:(MRAlertValueStyle)style;
+
+@property (nullable, nonatomic, readonly) NSString *title;
+@property (nullable, nonatomic, readonly) NSString *value;
+@property (nonatomic, readonly) MRAlertValueStyle style;
+@end
+
+
 NS_CLASS_AVAILABLE_IOS(8_0) @interface MRAlertController : UIViewController
 
 + (instancetype)alertWithTitle:(nullable NSString *)title message:(nullable NSString *)message preferredStyle:(MRAlertControllerStyle)preferredStyle;
 
 - (void)addAction:(MRAlertAction *)action;
 @property (nonatomic, readonly) NSArray<MRAlertAction *> *actions;
+
+- (void)addItem:(MRAlertItem *)item;
+@property (nonatomic, readonly) NSArray<MRAlertItem *> *items;
 
 - (void)addTextFieldWithConfigurationHandler:(void (^ __nullable)(UITextField *textField))configurationHandler;
 - (void)addImageViewWithConfigurationHandler:(void (^ __nullable)(UIImageView *imageVie))configurationHandler;

@@ -25,16 +25,16 @@
     [super viewDidAppear:animated];
     MRAlertController *alertController = [MRAlertController alertWithTitle:@"Information"
                                                                    message:@"Information Message"
-                                                            preferredStyle:MRAlertControllerStyleAlertImageTextField];
+                                                            preferredStyle:MRAlertControllerStyleAlertImage];
     
-    MRAlertAction *cancelAction = [MRAlertAction actionWithTitle:@"Cancel" handler:^(MRAlertAction * _Nonnull action) {
+    MRAlertAction *cancelAction = [MRAlertAction actionWithTitle:@"Claim" handler:^(MRAlertAction * _Nonnull action) {
         if (action) {
             NSLog(@"Cancel Actiion");
         }
     }];
     [alertController addAction:cancelAction];
 
-    MRAlertAction *sendAction = [MRAlertAction actionWithTitle:@"OK" handler:^(MRAlertAction * _Nonnull action) {
+    MRAlertAction *sendAction = [MRAlertAction actionWithTitle:@"My Level" handler:^(MRAlertAction * _Nonnull action) {
         if (action) {
             UITextField *customizedMsgLabel = alertController.textFields.firstObject;
             NSLog(@"customizedMsgLabel: %@", customizedMsgLabel.text);
@@ -42,14 +42,12 @@
     }];
     [alertController addAction:sendAction];
     
-    MRAlertAction *ignoreAction = [MRAlertAction actionWithTitle:@"Ignore" handler:^(MRAlertAction * _Nonnull action) {
-        if (action) {
-            UITextField *customizedMsgLabel = alertController.textFields.firstObject;
-            NSLog(@"customizedMsgLabel: %@", customizedMsgLabel.text);
-        }
-    }];
-    [alertController addAction:ignoreAction];
-
+    MRAlertItem *diamondTitle = [MRAlertItem actionWithTitle:@"DJ" value:@"10" style:MRAlertValueStyleDiamond];
+    [alertController addItem:diamondTitle];
+    
+    MRAlertItem *coinTitle = [MRAlertItem actionWithTitle:@"Looper" value:@"100" style:MRAlertValueStyleCoin];
+    [alertController addItem:coinTitle];
+    
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         if (textField) {
             textField.placeholder = @"Something cool!";
