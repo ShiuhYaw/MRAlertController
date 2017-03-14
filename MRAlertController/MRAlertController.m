@@ -9,8 +9,11 @@
 #import "MRAlertController.h"
 #import "UIColor+Hex.h"
 #import "UIButton+Style.h"
+#import "MRAlertActionCollectionViewCell.h"
 
 #define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double)568) < DBL_EPSILON)
+#define COLLECTION_HEIGHT @(50)
+#define COLLECTION_SPACING @(0.5)
 
 typedef void (^Handler)(MRAlertAction *action);
 
@@ -54,7 +57,7 @@ typedef void (^Handler)(MRAlertAction *action);
 typedef void (^ConfigurationHandler)(UITextField *textField);
 typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 
-@interface MRAlertController () <UITextFieldDelegate>
+@interface MRAlertController () <UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (assign, nonatomic) CGFloat constant;
 @property (weak, nonatomic) IBOutlet UIView *alertView;
@@ -66,11 +69,8 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 @property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 @property (weak, nonatomic) IBOutlet UIView *alertTextView;
 @property (weak, nonatomic) IBOutlet UITextField *alertTextField;
-@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
-@property (weak, nonatomic) IBOutlet UIButton *sendButton;
-@property (weak, nonatomic) IBOutlet UIView *buttonSeparatorView;
-@property (weak, nonatomic) IBOutlet UIView *sendView;
-@property (weak, nonatomic) IBOutlet UIView *cancelView;
+@property (weak, nonatomic) IBOutlet UIView *actionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (assign, nonatomic) MRAlertControllerStyle style;
 
 #pragma mark -- Alert View Contraints
@@ -119,8 +119,12 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertActionSendViewLeadingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertMultiActionSendViewLeadingConstraint;
 
+#pragma mark -- Alert Action Collection View Contraints
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertActionCollectionViewHeightConstraint;
+
+
 @property (strong, nonatomic) NSMutableArray<UITextField *> *mutableTextFields;
-@property (strong, nonatomic) NSMutableArray<UIAlertAction *> *mutableActions;
+@property (strong, nonatomic) NSMutableArray<MRAlertAction *> *mutableActions;
 @property (nonatomic, copy, nullable) ConfigurationHandler configurationHandler;
 @property (nonatomic, copy, nullable) ImageConfigurationHandler imageConfigurationHandler;
 
@@ -145,7 +149,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     return controller;
 }
 
-- (void)addAction:(UIAlertAction *)action {
+- (void)addAction:(MRAlertAction *)action {
     
     if (!self.mutableActions) {
         self.mutableActions = [NSMutableArray array];
@@ -187,7 +191,6 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 - (void)configureInterfaceWithStype:(MRAlertControllerStyle)style {
     
     self.constant = self.alertViewCenterYConstraint.constant;
-    self.alertView.layer.cornerRadius = 10.0f;
     self.titleLabel.text = self.title;
     self.messageLabel.text = self.message;
     
@@ -310,36 +313,26 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [self configureInterfaceWithStype:self.style];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"MRAlertActionCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"MRAlertActionCollectionViewCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
-    if (self.configurationHandler) {
+    self.alertView.layer.cornerRadius = 10.0f;
+    
+    if (self.configurationHandler && self.alertTextField) {
         
-        if (self.alertTextField) {
-            
-            [self.mutableTextFields addObject:self.alertTextField];
-        }
+        [self.mutableTextFields addObject:self.alertTextField];
         self.configurationHandler(self.alertTextField);
     }
-    if (self.imageConfigurationHandler) {
+    if (self.imageConfigurationHandler && self.imageView) {
         
         self.imageConfigurationHandler(self.imageView);
     }
     if (self.mutableActions && self.mutableActions.count > 0) {
-        if (self.mutableActions.count > 1) {
-            [self.cancelButton setTitle:((MRAlertAction *)self.mutableActions[1]).title forState:UIControlStateNormal];
-            [self.cancelButton setBackgroundColor:[UIColor colorWithHexString:@"#eeeeee"] forState:UIControlStateHighlighted];
-        }
-        [self.sendButton setTitle:((MRAlertAction *)self.mutableActions[0]).title forState:UIControlStateNormal];
-        [self.sendButton setBackgroundColor:[UIColor colorWithHexString:@"#eeeeee"] forState:UIControlStateHighlighted];
-        if (self.mutableActions.count < 2) {
-            
-            self.alertActionSendViewLeadingConstraint.priority = 999;
-            self.alertMultiActionSendViewLeadingConstraint.priority = 250;
-        }
+        
+        [self.collectionView reloadData];
     }
 }
 
@@ -348,31 +341,19 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     [super viewDidAppear:animated];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    
+    [super viewDidDisappear:animated];
+    [self.mutableTextFields removeAllObjects];
+    self.mutableTextFields = nil;
+    [self.mutableActions removeAllObjects];
+    self.mutableActions = nil;
+}
+
 - (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)cancelButtonDidTapped:(UIButton *)sender {
-    
-    if (self.mutableActions && self.mutableActions.count > 1) {
-        MRAlertAction *action = (MRAlertAction *)self.mutableActions[1];
-        [action triggerHandler];
-        [self dismissViewControllerAnimated:false completion:^{
-            
-        }];
-    }
-}
-
-- (IBAction)sendButtonDidTapped:(UIButton *)sender {
-    
-    if (self.mutableActions && self.mutableActions.count > 0) {
-        MRAlertAction *action = (MRAlertAction *)self.mutableActions[0];
-        [action triggerHandler];
-        [self dismissViewControllerAnimated:false completion:^{
-            
-        }];
-    }
 }
 
 - (IBAction)dismissButtonDidTapped:(UIButton *)sender {
@@ -404,16 +385,88 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     
     self.alertViewCenterYConstraint.constant = self.constant;
     [textField resignFirstResponder];
-    if (self.mutableActions && self.mutableActions.count > 0) {
-        MRAlertAction *action = (MRAlertAction *)self.mutableActions[0];
-        [action triggerHandler];
-    }
-    return false;
+    return true;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
     return true;
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [collectionView deselectItemAtIndexPath:indexPath animated:false];
+}
+
+
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    
+    return @(1).integerValue;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+    if (!self.mutableActions) {
+        
+        return @(0).integerValue;
+    }
+    NSUInteger rows = self.mutableActions.count;
+    return rows;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    MRAlertActionCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MRAlertActionCollectionViewCell" forIndexPath:indexPath];
+    cell.selectHandler = ^(UICollectionViewCell * _Nonnull cell) {
+        
+        MRAlertAction *alertAction = self.mutableActions[cell.tag];
+        alertAction.handler(alertAction);
+    };
+    cell.tag = indexPath.row;
+    cell.titleString = self.mutableActions[indexPath.row].title;
+    return cell;
+}
+
+#pragma mark - UICollectionViewDelegateFlowLayout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CGRect rect = collectionView.bounds;
+    CGFloat width = rect.size.width;
+    NSUInteger rows = self.mutableActions.count;
+
+    if (rows < 2) {
+        self.alertActionCollectionViewHeightConstraint.constant = COLLECTION_HEIGHT.floatValue;
+        return CGSizeMake(width, COLLECTION_HEIGHT.floatValue);
+    }
+    if (rows > 2) {
+        self.alertActionCollectionViewHeightConstraint.constant = COLLECTION_HEIGHT.floatValue * rows;
+        return CGSizeMake(width, COLLECTION_HEIGHT.floatValue);
+    }
+    if (rows < 3) {
+        self.alertActionCollectionViewHeightConstraint.constant = COLLECTION_HEIGHT.floatValue;
+        return CGSizeMake((width/2) - COLLECTION_SPACING.floatValue, COLLECTION_HEIGHT.floatValue);
+    }
+    return CGSizeMake(width, COLLECTION_HEIGHT.floatValue);
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    
+    return UIEdgeInsetsZero;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    
+    return COLLECTION_SPACING.floatValue;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    
+    return COLLECTION_SPACING.floatValue;
 }
 
 /*

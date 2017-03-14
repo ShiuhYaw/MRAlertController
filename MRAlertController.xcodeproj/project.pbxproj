@@ -19,6 +19,8 @@
 		9810E9471E7136D500B6ABA0 /* MRAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9810E9451E7136D500B6ABA0 /* MRAlertController.m */; };
 		9810E9481E7136D500B6ABA0 /* MRAlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9810E9461E7136D500B6ABA0 /* MRAlertController.xib */; };
 		9810E94E1E72523E00B6ABA0 /* UIButton+Style.m in Sources */ = {isa = PBXBuildFile; fileRef = 9810E94D1E72523E00B6ABA0 /* UIButton+Style.m */; };
+		988D59471E779EC40044490A /* MRAlertActionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 988D59451E779EC40044490A /* MRAlertActionCollectionViewCell.m */; };
+		988D59481E779EC40044490A /* MRAlertActionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 988D59461E779EC40044490A /* MRAlertActionCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,9 @@
 		9810E9461E7136D500B6ABA0 /* MRAlertController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MRAlertController.xib; sourceTree = "<group>"; };
 		9810E94C1E72523E00B6ABA0 /* UIButton+Style.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Style.h"; sourceTree = "<group>"; };
 		9810E94D1E72523E00B6ABA0 /* UIButton+Style.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Style.m"; sourceTree = "<group>"; };
+		988D59441E779EC40044490A /* MRAlertActionCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAlertActionCollectionViewCell.h; sourceTree = "<group>"; };
+		988D59451E779EC40044490A /* MRAlertActionCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRAlertActionCollectionViewCell.m; sourceTree = "<group>"; };
+		988D59461E779EC40044490A /* MRAlertActionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MRAlertActionCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +122,9 @@
 				9810E9441E7136D500B6ABA0 /* MRAlertController.h */,
 				9810E9451E7136D500B6ABA0 /* MRAlertController.m */,
 				9810E9461E7136D500B6ABA0 /* MRAlertController.xib */,
+				988D59441E779EC40044490A /* MRAlertActionCollectionViewCell.h */,
+				988D59451E779EC40044490A /* MRAlertActionCollectionViewCell.m */,
+				988D59461E779EC40044490A /* MRAlertActionCollectionViewCell.xib */,
 				9810E90F1E712EF200B6ABA0 /* ViewController.h */,
 				9810E9101E712EF200B6ABA0 /* ViewController.m */,
 				9810E9121E712EF200B6ABA0 /* Main.storyboard */,
@@ -268,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9810E9191E712EF200B6ABA0 /* LaunchScreen.storyboard in Resources */,
+				988D59481E779EC40044490A /* MRAlertActionCollectionViewCell.xib in Resources */,
 				9810E9481E7136D500B6ABA0 /* MRAlertController.xib in Resources */,
 				9810E9161E712EF200B6ABA0 /* Assets.xcassets in Resources */,
 				9810E9141E712EF200B6ABA0 /* Main.storyboard in Resources */,
@@ -295,6 +304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				988D59471E779EC40044490A /* MRAlertActionCollectionViewCell.m in Sources */,
 				9810E94E1E72523E00B6ABA0 /* UIButton+Style.m in Sources */,
 				9810E9471E7136D500B6ABA0 /* MRAlertController.m in Sources */,
 				9810E9111E712EF200B6ABA0 /* ViewController.m in Sources */,

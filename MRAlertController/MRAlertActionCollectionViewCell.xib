@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MRAlertActionCollectionViewCell" id="gTV-IL-0wX" customClass="MRAlertActionCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="179" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="179" height="50"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UGZ-fJ-7CQ">
+                        <rect key="frame" x="0.0" y="0.0" width="179" height="50"/>
+                        <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                        <state key="normal" title="OK">
+                            <color key="titleColor" red="0.92549019610000005" green="0.17254901959999999" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="cellButtonDidTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="2wJ-xK-deN"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="UGZ-fJ-7CQ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Qv3-jd-LeK"/>
+                <constraint firstAttribute="trailing" secondItem="UGZ-fJ-7CQ" secondAttribute="trailing" id="f3M-30-TL8"/>
+                <constraint firstItem="UGZ-fJ-7CQ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="gmc-85-SgL"/>
+                <constraint firstAttribute="bottom" secondItem="UGZ-fJ-7CQ" secondAttribute="bottom" id="htr-RV-y8y"/>
+            </constraints>
+            <size key="customSize" width="179" height="50"/>
+            <connections>
+                <outlet property="titleButton" destination="UGZ-fJ-7CQ" id="IeL-qr-Tov"/>
+            </connections>
+            <point key="canvasLocation" x="81" y="34"/>
+        </collectionViewCell>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+    </objects>
+</document>

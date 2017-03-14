@@ -16,9 +16,9 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
 }
-
 
 - (void)viewDidAppear:(BOOL)animated {
     
@@ -26,6 +26,14 @@
     MRAlertController *alertController = [MRAlertController alertWithTitle:@"Information"
                                                                    message:@"Information Message"
                                                             preferredStyle:MRAlertControllerStyleAlertImageTextField];
+    
+    MRAlertAction *cancelAction = [MRAlertAction actionWithTitle:@"Cancel" handler:^(MRAlertAction * _Nonnull action) {
+        if (action) {
+            NSLog(@"Cancel Actiion");
+        }
+    }];
+    [alertController addAction:cancelAction];
+
     MRAlertAction *sendAction = [MRAlertAction actionWithTitle:@"OK" handler:^(MRAlertAction * _Nonnull action) {
         if (action) {
             UITextField *customizedMsgLabel = alertController.textFields.firstObject;
@@ -33,27 +41,32 @@
         }
     }];
     [alertController addAction:sendAction];
-    MRAlertAction *cancelAction = [MRAlertAction actionWithTitle:@"Cancel" handler:^(MRAlertAction * _Nonnull action) {
+    
+    MRAlertAction *ignoreAction = [MRAlertAction actionWithTitle:@"Ignore" handler:^(MRAlertAction * _Nonnull action) {
         if (action) {
-            NSLog(@"Cancel Actiion");
+            UITextField *customizedMsgLabel = alertController.textFields.firstObject;
+            NSLog(@"customizedMsgLabel: %@", customizedMsgLabel.text);
         }
     }];
-    [alertController addAction:cancelAction];
-    
+    [alertController addAction:ignoreAction];
+
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         if (textField) {
             textField.placeholder = @"Something cool!";
         }
     }];
+    
     [alertController addImageViewWithConfigurationHandler:^(UIImageView * _Nonnull imageView) {
         if (imageView) {
             imageView.image = [UIImage imageNamed:@"bt_gp"];
         }
     }];
+    
     [self presentViewController:alertController animated:false completion:^{
         
     }];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
