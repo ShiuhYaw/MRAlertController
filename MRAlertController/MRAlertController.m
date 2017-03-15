@@ -314,6 +314,9 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
             break;
         case MRAlertControllerStyleAlertImageTextField:
             self.customCollectionView.hidden = true;
+            self.alertTitleViewImageViewBottomConstraint.priority = 999;
+            self.alertTitleViewMessageViewBottomConstraint.priority = 250;
+            self.alertImageViewMessageViewBottomConstraint.priority = 999;
             self.alertMessageViewActionViewBottomConstraint.priority = 250;
             self.alertMessageViewTextFieldViewBottomConstaint.priority = 999;
             self.alertCustomCollectionViewTopConstraint.priority = 250;
@@ -437,6 +440,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 
     if (self.configurationHandler && self.alertTextField) {
         
+        [self.alertTextField becomeFirstResponder];
         [self.mutableTextFields addObject:self.alertTextField];
         self.configurationHandler(self.alertTextField);
     }
@@ -536,12 +540,10 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     
     if ([collectionView isEqual:self.customCollectionView]) {
         if (!self.mutableItems) {
-            self.alertTitleViewImageViewBottomConstraint.constant = 0;
             self.alertCustomCollectionViewHeightConstraint.constant = 0;
             return @(0).integerValue;
         }
         if (self.mutableItems.count == 0) {
-            self.alertTitleViewImageViewBottomConstraint.constant = 0;
             self.alertCustomCollectionViewHeightConstraint.constant = 0;
         }
         NSUInteger rows = self.mutableItems.count;

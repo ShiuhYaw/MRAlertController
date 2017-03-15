@@ -23,8 +23,8 @@
 - (void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
-    MRAlertController *alertController = [MRAlertController alertWithTitle:@"Information"
-                                                                   message:@"Information Message"
+    MRAlertController *alertController = [MRAlertController alertWithTitle:@"Write something to invite your fans \n to watch this live"
+                                                                   message:@""
                                                             preferredStyle:MRAlertControllerStyleAlertImageTextField];
     
     MRAlertAction *cancelAction = [MRAlertAction actionWithTitle:@"Claim" handler:^(MRAlertAction * _Nonnull action) {
@@ -56,7 +56,7 @@
     
     [alertController addImageViewWithConfigurationHandler:^(UIImageView * _Nonnull imageView) {
         if (imageView) {
-            imageView.image = [UIImage imageNamed:@"bt_gp"];
+            imageView.image = [UIImage imageNamed:@"icPrivilege"];
         }
     }];
     
