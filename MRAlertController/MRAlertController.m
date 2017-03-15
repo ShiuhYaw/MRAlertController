@@ -16,6 +16,7 @@
 #define CUSTOM_COLLECTION_HEIGHT @(40)
 #define COLLECTION_HEIGHT @(50)
 #define COLLECTION_SPACING @(0.5)
+#define TEXTFIELD_LIMIT @(51)
 
 typedef void (^Handler)(MRAlertAction *action);
 
@@ -507,7 +508,12 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
-    return true;
+    NSUInteger textFieldCount = textField.text.length;
+    NSUInteger currentString = string.length;
+    if (textFieldCount + currentString < TEXTFIELD_LIMIT.integerValue) {
+        return true;
+    }
+    return false;
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -569,10 +575,15 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
         return cell;
     }
     MRAlertActionCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MRAlertActionCollectionViewCell" forIndexPath:indexPath];
+    
+    __weak __typeof(self)weakSelf = self;
     cell.selectHandler = ^(UICollectionViewCell * _Nonnull cell) {
         
         MRAlertAction *alertAction = self.mutableActions[cell.tag];
         alertAction.handler(alertAction);
+        [weakSelf dismissViewControllerAnimated:false completion:^{
+            
+        }];
     };
     cell.tag = indexPath.row;
     cell.titleString = self.mutableActions[indexPath.row].title;

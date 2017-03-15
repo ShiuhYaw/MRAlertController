@@ -25,7 +25,7 @@
     [super viewDidAppear:animated];
     MRAlertController *alertController = [MRAlertController alertWithTitle:@"Information"
                                                                    message:@"Information Message"
-                                                            preferredStyle:MRAlertControllerStyleAlertImage];
+                                                            preferredStyle:MRAlertControllerStyleAlertImageTextField];
     
     MRAlertAction *cancelAction = [MRAlertAction actionWithTitle:@"Claim" handler:^(MRAlertAction * _Nonnull action) {
         if (action) {
