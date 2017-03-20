@@ -66,9 +66,8 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view alpha="0.80000000000000004" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J2N-Nm-0vM">
+                <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J2N-Nm-0vM">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xwg-sE-Oqs">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -253,9 +252,13 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="J2N-Nm-0vM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="5Rh-mN-31M"/>
+                <constraint firstAttribute="trailing" secondItem="J2N-Nm-0vM" secondAttribute="trailing" id="B4W-bw-gE9"/>
                 <constraint firstItem="4ah-hJ-Fk8" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="KAN-kv-hvY"/>
                 <constraint firstAttribute="trailing" secondItem="4ah-hJ-Fk8" secondAttribute="trailing" priority="750" constant="34" id="Nhq-vw-mfa"/>
                 <constraint firstItem="4ah-hJ-Fk8" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="NtZ-b1-bHB"/>
+                <constraint firstAttribute="bottom" secondItem="J2N-Nm-0vM" secondAttribute="bottom" id="PYH-gm-oZo"/>
+                <constraint firstItem="J2N-Nm-0vM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="i4O-qk-Dvz"/>
                 <constraint firstItem="4ah-hJ-Fk8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" priority="750" constant="35" id="lmb-QP-lhN"/>
             </constraints>
             <point key="canvasLocation" x="33" y="53"/>

@@ -128,7 +128,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 @property (weak, nonatomic) IBOutlet UICollectionView *customCollectionView;
 
 @property (assign, nonatomic) MRAlertControllerStyle style;
-
+@property (assign, nonatomic) BOOL isKeyboardShown;
 #pragma mark -- Alert View Contraints
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertViewCenterYConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertViewCenterXContraint;
@@ -429,6 +429,8 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     [self configureInterfaceWithStype:self.preferredStyle];
     [self.actionCollectionView registerNib:[UINib nibWithNibName:@"MRAlertActionCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"MRAlertActionCollectionViewCell"];
     [self.customCollectionView registerNib:[UINib nibWithNibName:@"MRAlertCustomCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"MRAlertCustomCollectionViewCell"];
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object: nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -440,6 +442,9 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 
     if (self.configurationHandler && self.alertTextField) {
         
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardDidShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardDidHideNotification object:nil];
+
         [self.alertTextField becomeFirstResponder];
         [self.mutableTextFields addObject:self.alertTextField];
         self.configurationHandler(self.alertTextField);
@@ -470,6 +475,70 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     self.mutableTextFields = nil;
     [self.mutableActions removeAllObjects];
     self.mutableActions = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:self];
+    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+}
+
+- (void)keyboardShow:(NSNotification *)notification {
+    
+    self.isKeyboardShown = true;
+    [self moveAlertView:notification];
+}
+
+- (void)keyboardHide:(NSNotification *)notification {
+    
+    self.isKeyboardShown = false;
+    [self moveAlertView:notification];
+}
+
+- (void)moveAlertView:(NSNotification *)notification {
+    
+    if (self.isKeyboardShown) {
+        NSDictionary *userInfo = notification.userInfo;
+        CGSize size = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+        CGRect frame = self.view.bounds;
+        CGSize frameSize = frame.size;
+        CGFloat newFrameHeight = (frameSize.height / 2) - (frameSize.height - size.height) / 2;
+        [UIView animateWithDuration:1 animations:^{
+            self.alertViewCenterYConstraint.constant = self.alertViewCenterYConstraint.constant - newFrameHeight;
+            [self.alertView layoutIfNeeded];
+        }];
+    } else {
+        [UIView animateWithDuration:1 animations:^{
+            self.alertViewCenterYConstraint.constant = self.constant;
+            [self.alertView layoutIfNeeded];
+        }];
+    }
+}
+
+- (void)deviceOrientationDidChange:(NSNotification *)notification {
+
+    self.alertViewCenterYConstraint.constant = self.constant;
+    [self moveAlertView:notification];
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    switch (orientation) {
+        case UIDeviceOrientationUnknown:
+            
+            break;
+        case UIDeviceOrientationPortrait:
+        case UIDeviceOrientationPortraitUpsideDown:
+            
+            break;
+        case UIDeviceOrientationLandscapeLeft:
+        case UIDeviceOrientationLandscapeRight:
+            
+            break;
+        case UIDeviceOrientationFaceUp:
+            
+            break;
+        case UIDeviceOrientationFaceDown:
+            
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -494,9 +563,13 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     return true;
 }
 
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     
-    self.alertViewCenterYConstraint.constant = self.alertViewCenterYConstraint.constant - (self.alertView.frame.size.height / 2);
+//    self.alertViewCenterYConstraint.constant = self.alertViewCenterYConstraint.constant - (self.alertView.frame.size.height / 4);
+//    if (IS_IPHONE_5) {
+//        self.alertViewCenterYConstraint.constant = self.alertViewCenterYConstraint.constant - (self.alertView.frame.size.height / 4) + 30;
+//    }
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
