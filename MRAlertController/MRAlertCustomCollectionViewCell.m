@@ -10,9 +10,13 @@
 
 @interface MRAlertCustomCollectionViewCell()
 
-@property (weak, nonatomic) IBOutlet UILabel *valueLabel;
+@property (weak, nonatomic) IBOutlet UIView *titleView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *styleImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
+
+@property (weak, nonatomic) IBOutlet UIView *rewardView;
+@property (weak, nonatomic) IBOutlet UIImageView *rewardImageView;
+@property (weak, nonatomic) IBOutlet UILabel *rewardTitleLabel;
 
 @end
 
@@ -20,22 +24,32 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    self.titleView.layer.cornerRadius = 5;
+    self.titleView.layer.borderWidth = 0.5;
+    self.titleView.layer.borderColor = [UIColor colorWithRed:(229/255.0f) green:(229/255.0f) blue:(229/255.0f) alpha:1.0f].CGColor;
+    self.rewardView.layer.cornerRadius = 5;
+    self.rewardView.layer.borderWidth = 0.5;
+    self.rewardView.layer.borderColor = [UIColor colorWithRed:(229/255.0f) green:(229/255.0f) blue:(229/255.0f) alpha:1.0f].CGColor;
+
 }
 
-- (void)setTitle:(NSString *)title {
+- (void)setTitleString:(NSString *)titleString {
+ 
+    self.titleLabel.text = titleString;
+}
+
+- (void)setTitleImage:(UIImage *)titleImage {
     
-    self.titleLabel.text = title;
+    self.titleImageView.image = titleImage;
 }
 
-- (void)setValue:(NSString *)value {
+- (void)setRewardTitleString:(NSString *)rewardTitleString {
     
-    self.valueLabel.text = value;
+    self.rewardTitleLabel.text = rewardTitleString;
 }
 
-- (void)setImage:(UIImage *)image {
+- (void)setRewardImage:(UIImage *)rewardImage {
     
-    self.styleImageView.image = image;
+    self.rewardImageView.image = rewardImage;
 }
-
 @end

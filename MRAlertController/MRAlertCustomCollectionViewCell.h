@@ -10,8 +10,10 @@
 
 @interface MRAlertCustomCollectionViewCell : UICollectionViewCell
 
-@property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *value;
-@property (assign, nonatomic) UIImage *image;
+@property (strong, nonatomic) NSString *titleString;
+@property (assign, nonatomic) UIImage *titleImage;
+
+@property (strong, nonatomic) NSString *rewardTitleString;
+@property (strong, nonatomic) UIImage *rewardImage;
 
 @end

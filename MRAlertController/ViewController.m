@@ -23,9 +23,19 @@
 - (void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
-    MRAlertController *alertController = [MRAlertController alertWithTitle:@"Write something to invite your fans \n to watch this live"
-                                                                   message:@""
-                                                            preferredStyle:MRAlertControllerStyleAlertImageTextField];
+    [self alert];
+
+}
+- (IBAction)alertDidTapped:(UIButton *)sender {
+    
+    [self alert];
+}
+
+- (void)alert {
+    
+    MRAlertController *alertController = [MRAlertController alertWithTitle:@"Claim Rewards"
+                                                                   message:@"You earned these rewards\nbased on last week performance"
+                                                            preferredStyle:MRAlertControllerStyleAlertCustom];
     
     MRAlertAction *cancelAction = [MRAlertAction actionWithTitle:@"Claim" handler:^(MRAlertAction * _Nonnull action) {
         if (action) {
@@ -33,14 +43,14 @@
         }
     }];
     [alertController addAction:cancelAction];
-
-    MRAlertAction *sendAction = [MRAlertAction actionWithTitle:@"My Level" handler:^(MRAlertAction * _Nonnull action) {
-        if (action) {
-            UITextField *customizedMsgLabel = alertController.textFields.firstObject;
-            NSLog(@"customizedMsgLabel: %@", customizedMsgLabel.text);
-        }
-    }];
-    [alertController addAction:sendAction];
+    
+    //    MRAlertAction *sendAction = [MRAlertAction actionWithTitle:@"My Level" handler:^(MRAlertAction * _Nonnull action) {
+    //        if (action) {
+    //            UITextField *customizedMsgLabel = alertController.textFields.firstObject;
+    //            NSLog(@"customizedMsgLabel: %@", customizedMsgLabel.text);
+    //        }
+    //    }];
+    //    [alertController addAction:sendAction];
     
     MRAlertItem *diamondTitle = [MRAlertItem actionWithTitle:@"DJ" value:@"10" style:MRAlertValueStyleDiamond];
     [alertController addItem:diamondTitle];
@@ -63,8 +73,8 @@
     [self presentViewController:alertController animated:false completion:^{
         
     }];
-}
 
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

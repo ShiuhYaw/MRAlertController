@@ -13,8 +13,9 @@
 #import "MRAlertCustomCollectionViewCell.h"
 
 #define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double)568) < DBL_EPSILON)
-#define CUSTOM_COLLECTION_HEIGHT @(40)
-#define COLLECTION_HEIGHT @(50)
+#define CUSTOM_COLLECTION_HEIGHT @(49)
+#define COLLECTION_HEIGHT @(49)
+#define CUSTOM_COLLECTION_SPACING @(7)
 #define COLLECTION_SPACING @(0.5)
 #define TEXTFIELD_LIMIT @(51)
 
@@ -364,6 +365,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
             self.alertTitleViewImageViewBottomConstraint.priority = 999;
             self.alertTitleViewMessageViewBottomConstraint.priority = 250;
             self.alertImageViewMessageViewBottomConstraint.priority = 999;
+            self.alertImageViewMessageViewBottomConstraint.constant = 0;
             self.alertMessageViewActionViewBottomConstraint.priority = 999;
             self.alertMessageViewTextFieldViewBottomConstaint.priority = 250;
             self.alertTextFieldViewBottomConstraint.priority = 250;
@@ -429,8 +431,8 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     [self configureInterfaceWithStype:self.preferredStyle];
     [self.actionCollectionView registerNib:[UINib nibWithNibName:@"MRAlertActionCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"MRAlertActionCollectionViewCell"];
     [self.customCollectionView registerNib:[UINib nibWithNibName:@"MRAlertCustomCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"MRAlertCustomCollectionViewCell"];
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object: nil];
+//    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object: nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -477,8 +479,8 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     self.mutableActions = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:self];
-    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:self];
+//    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
 }
 
 - (void)keyboardShow:(NSNotification *)notification {
@@ -634,14 +636,15 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     
     if ([collectionView isEqual:self.customCollectionView]) {
         MRAlertCustomCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MRAlertCustomCollectionViewCell" forIndexPath:indexPath];
-        cell.title = self.mutableItems[indexPath.row].title;
-        cell.value = self.mutableItems[indexPath.row].value;
+        cell.titleString = self.mutableItems[indexPath.row].title;
+        cell.rewardTitleString = self.mutableItems[indexPath.row].value;
+        cell.titleImage = [UIImage imageNamed:@"Newbie"];
         switch (self.mutableItems[indexPath.row].style) {
             case MRAlertValueStyleCoin:
-                cell.image = [UIImage imageNamed:@"ic_coinsnum"];
+                cell.rewardImage = [UIImage imageNamed:@"ic_coinsnum"];
                 break;
             case MRAlertValueStyleDiamond:
-                cell.image = [UIImage imageNamed:@"ic_diamond"];
+                cell.rewardImage = [UIImage imageNamed:@"ic_diamond"];
                 break;
             default:
                 break;
@@ -675,7 +678,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
         CGRect rect = self.customView.bounds;
         CGFloat width = rect.size.width;
         NSUInteger rows = self.mutableItems.count;
-        self.alertCustomCollectionViewHeightConstraint.constant = CUSTOM_COLLECTION_HEIGHT.floatValue * rows;
+        self.alertCustomCollectionViewHeightConstraint.constant = (CUSTOM_COLLECTION_HEIGHT.floatValue * rows) + CUSTOM_COLLECTION_HEIGHT.floatValue / self.mutableItems.count ;
         return CGSizeMake(width, CUSTOM_COLLECTION_HEIGHT.floatValue);
     }
     CGRect rect = collectionView.bounds;
@@ -688,7 +691,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     }
     if (rows > 2) {
         
-        self.alertActionCollectionViewHeightConstraint.constant = COLLECTION_HEIGHT.floatValue * rows;
+        self.alertActionCollectionViewHeightConstraint.constant = (COLLECTION_HEIGHT.floatValue * rows) + COLLECTION_HEIGHT.floatValue / 2;
         return CGSizeMake(width, COLLECTION_HEIGHT.floatValue);
     }
     if (rows < 3) {
@@ -706,12 +709,18 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     
-    return COLLECTION_SPACING.floatValue;
+    if ([collectionView isEqual:self.customCollectionView]) {
+        return CUSTOM_COLLECTION_SPACING.floatValue * 2;
+    }
+    return COLLECTION_SPACING .floatValue;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     
-    return COLLECTION_SPACING.floatValue;
+    if ([collectionView isEqual:self.customCollectionView]) {
+        return CUSTOM_COLLECTION_SPACING.floatValue * 2;
+    }
+    return COLLECTION_SPACING.floatValue ;
 }
 
 /*
