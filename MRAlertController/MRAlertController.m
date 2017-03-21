@@ -15,7 +15,7 @@
 #define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double)568) < DBL_EPSILON)
 #define CUSTOM_COLLECTION_HEIGHT @(49)
 #define COLLECTION_HEIGHT @(49)
-#define CUSTOM_COLLECTION_SPACING @(7)
+#define CUSTOM_COLLECTION_SPACING @(14)
 #define COLLECTION_SPACING @(0.5)
 #define TEXTFIELD_LIMIT @(51)
 
@@ -60,7 +60,9 @@ typedef void (^Handler)(MRAlertAction *action);
 
 @interface MRAlertItem()
 
+@property (strong, nonatomic) UIImage *titleImg;
 @property (strong, nonatomic) NSString *titleString;
+@property (strong, nonatomic) UIImage *valueImg;
 @property (strong, nonatomic) NSString *valueString;
 @property (assign, nonatomic) MRAlertValueStyle valueStyle;
 
@@ -68,27 +70,52 @@ typedef void (^Handler)(MRAlertAction *action);
 
 @implementation MRAlertItem
 
-+ (instancetype)actionWithTitle:(NSString *)title value:(NSString *)value style:(MRAlertValueStyle)style {
++ (instancetype)actionWithTitle:(NSString *)title titleImage:(UIImage *)titleImg value:(NSString *)value valueImage:(UIImage *)valueImg {
+
+    MRAlertItem *alertItem = [[MRAlertItem alloc] init];
+    alertItem.titleImg = titleImg;
+    alertItem.titleString = title;
+    alertItem.valueImg = valueImg;
+    alertItem.valueString = value;
+    alertItem.valueStyle = MRAlertValueStyleNone;
+    return alertItem;
+}
+
++ (instancetype)actionWithTitle:(NSString *)title value:(NSString *)value titleImage:(UIImage *)titleImg style:(MRAlertValueStyle)style {
     
     MRAlertItem *alertItem = [[MRAlertItem alloc] init];
+    alertItem.titleImg = titleImg;
     alertItem.titleString = title;
+    alertItem.valueImg = nil;
     alertItem.valueString = value;
     alertItem.valueStyle = style;
     return alertItem;
 }
 
-+ (instancetype)actionWithTitle:(nullable NSString *)title handler:(void (^ __nullable)(MRAlertAction *action))handler {
++ (instancetype)actionWithTitle:(NSString *)title value:(NSString *)value style:(MRAlertValueStyle)style {
     
-    MRAlertItem *alertAction = [[MRAlertItem alloc] init];
-    alertAction.titleString = title;
-    return alertAction;
+    MRAlertItem *alertItem = [[MRAlertItem alloc] init];
+    alertItem.titleImg = nil;
+    alertItem.titleString = title;
+    alertItem.valueImg = nil;
+    alertItem.valueString = value;
+    alertItem.valueStyle = style;
+    return alertItem;
 }
 
 - (id)copyWithZone:(nullable NSZone *)zone {
     
-    MRAlertItem *alertAction = [[[self class] allocWithZone:zone] init];
-    alertAction.titleString = self.titleString;
-    return alertAction;
+    MRAlertItem *alertItem = [[[self class] allocWithZone:zone] init];
+    alertItem.titleString = self.titleString;
+    alertItem.titleImg = self.titleImg;
+    alertItem.valueString = self.valueString;
+    alertItem.valueImg = self.valueImg;
+    return alertItem;
+}
+
+- (UIImage *)titleImage {
+    
+    return self.titleImg;
 }
 
 - (NSString *)title {
@@ -101,9 +128,22 @@ typedef void (^Handler)(MRAlertAction *action);
     return self.valueString;
 }
 
+- (UIImage *)valueImage {
+    
+    return self.valueImg;
+}
+
 - (MRAlertValueStyle)style {
     
     return self.valueStyle;
+}
+
+- (void)dealloc {
+    
+    self.titleImg = nil;
+    self.titleString = nil;
+    self.valueImg = nil;
+    self.valueString = nil;
 }
 
 @end
@@ -365,7 +405,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
             self.alertTitleViewImageViewBottomConstraint.priority = 999;
             self.alertTitleViewMessageViewBottomConstraint.priority = 250;
             self.alertImageViewMessageViewBottomConstraint.priority = 999;
-            self.alertImageViewMessageViewBottomConstraint.constant = 0;
+            self.alertImageViewMessageViewBottomConstraint.constant = 15;
             self.alertMessageViewActionViewBottomConstraint.priority = 999;
             self.alertMessageViewTextFieldViewBottomConstaint.priority = 250;
             self.alertTextFieldViewBottomConstraint.priority = 250;
@@ -473,10 +513,19 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 - (void)viewDidDisappear:(BOOL)animated {
     
     [super viewDidDisappear:animated];
-    [self.mutableTextFields removeAllObjects];
-    self.mutableTextFields = nil;
-    [self.mutableActions removeAllObjects];
-    self.mutableActions = nil;
+    if (self.mutableTextFields && self.mutableTextFields.count > 0) {
+        [self.mutableTextFields removeAllObjects];
+        self.mutableTextFields = nil;
+    }
+    if (self.mutableActions && self.mutableActions.count > 0) {
+        [self.mutableActions removeAllObjects];
+        self.mutableActions = nil;
+    }
+    if (self.mutableItems && self.mutableItems.count > 0) {
+        [self.mutableItems removeAllObjects];
+        self.mutableItems = nil;
+    }
+
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
 //    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:self];
@@ -638,15 +687,19 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
         MRAlertCustomCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MRAlertCustomCollectionViewCell" forIndexPath:indexPath];
         cell.titleString = self.mutableItems[indexPath.row].title;
         cell.rewardTitleString = self.mutableItems[indexPath.row].value;
-        cell.titleImage = [UIImage imageNamed:@"Newbie"];
+        cell.titleImage = self.mutableItems[indexPath.row].titleImage;
+
         switch (self.mutableItems[indexPath.row].style) {
             case MRAlertValueStyleCoin:
-                cell.rewardImage = [UIImage imageNamed:@"ic_coinsnum"];
+                cell.rewardImage = [UIImage imageNamed:@"icRewardsCoins"];
                 break;
             case MRAlertValueStyleDiamond:
-                cell.rewardImage = [UIImage imageNamed:@"ic_diamond"];
+                cell.rewardImage = [UIImage imageNamed:@"icRewardsDiamond"];
                 break;
             default:
+                if (self.mutableItems[indexPath.row].valueImage) {
+                    cell.rewardImage = self.mutableItems[indexPath.row].valueImage;
+                }
                 break;
         }
         cell.tag = indexPath.row;
@@ -678,7 +731,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
         CGRect rect = self.customView.bounds;
         CGFloat width = rect.size.width;
         NSUInteger rows = self.mutableItems.count;
-        self.alertCustomCollectionViewHeightConstraint.constant = (CUSTOM_COLLECTION_HEIGHT.floatValue * rows) + CUSTOM_COLLECTION_HEIGHT.floatValue / self.mutableItems.count ;
+        self.alertCustomCollectionViewHeightConstraint.constant = (CUSTOM_COLLECTION_HEIGHT.floatValue * (rows)) + (CUSTOM_COLLECTION_SPACING.floatValue * (rows - 1));
         return CGSizeMake(width, CUSTOM_COLLECTION_HEIGHT.floatValue);
     }
     CGRect rect = collectionView.bounds;
@@ -691,7 +744,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     }
     if (rows > 2) {
         
-        self.alertActionCollectionViewHeightConstraint.constant = (COLLECTION_HEIGHT.floatValue * rows) + COLLECTION_HEIGHT.floatValue / 2;
+        self.alertActionCollectionViewHeightConstraint.constant = (COLLECTION_HEIGHT.floatValue * rows) + COLLECTION_HEIGHT.floatValue ;
         return CGSizeMake(width, COLLECTION_HEIGHT.floatValue);
     }
     if (rows < 3) {
@@ -710,7 +763,10 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     
     if ([collectionView isEqual:self.customCollectionView]) {
-        return CUSTOM_COLLECTION_SPACING.floatValue * 2;
+        if IS_IPHONE_5 {
+            return CUSTOM_COLLECTION_SPACING.floatValue / 4;
+        }
+        return CUSTOM_COLLECTION_SPACING.floatValue;
     }
     return COLLECTION_SPACING .floatValue;
 }

@@ -52,11 +52,14 @@
     //    }];
     //    [alertController addAction:sendAction];
     
-    MRAlertItem *diamondTitle = [MRAlertItem actionWithTitle:@"DJ" value:@"10" style:MRAlertValueStyleDiamond];
-    [alertController addItem:diamondTitle];
+    MRAlertItem *coinItem = [MRAlertItem actionWithTitle:@"Super Star" titleImage:[UIImage imageNamed:@"fresh"] value:@"1000" valueImage:[UIImage imageNamed:@"icRewardsDiamond"]];
+    [alertController addItem:coinItem];
+
+    MRAlertItem *diamondItem = [MRAlertItem actionWithTitle:@"DJ" titleImage:[UIImage imageNamed:@"Newbie"] value:@"10" valueImage:[UIImage imageNamed:@"icRewardsCoins"]];
+    [alertController addItem:diamondItem];
     
-    MRAlertItem *coinTitle = [MRAlertItem actionWithTitle:@"Looper" value:@"100" style:MRAlertValueStyleCoin];
-    [alertController addItem:coinTitle];
+    [alertController addItem:diamondItem];
+
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         if (textField) {
