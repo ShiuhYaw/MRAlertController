@@ -37,29 +37,25 @@
                                                                    message:@"You earned these rewards\nbased on last week performance"
                                                             preferredStyle:MRAlertControllerStyleAlertCustom];
     
-    MRAlertAction *cancelAction = [MRAlertAction actionWithTitle:@"Claim" handler:^(MRAlertAction * _Nonnull action) {
-        if (action) {
-            NSLog(@"Cancel Actiion");
-        }
-    }];
-    [alertController addAction:cancelAction];
-    
-    //    MRAlertAction *sendAction = [MRAlertAction actionWithTitle:@"My Level" handler:^(MRAlertAction * _Nonnull action) {
-    //        if (action) {
-    //            UITextField *customizedMsgLabel = alertController.textFields.firstObject;
-    //            NSLog(@"customizedMsgLabel: %@", customizedMsgLabel.text);
-    //        }
-    //    }];
-    //    [alertController addAction:sendAction];
+//    MRAlertAction *cancelAction = [MRAlertAction actionWithTitle:@"Claim" handler:^(MRAlertAction * _Nonnull action) {
+//        if (action) {
+//            NSLog(@"%@ Action", action.title);
+//        }
+//    }];
+//    [alertController addAction:cancelAction];
+//    MRAlertAction *sendAction = [MRAlertAction actionWithTitle:@"My Level" handler:^(MRAlertAction * _Nonnull action) {
+//        if (action) {
+//            UITextField *customizedMsgLabel = alertController.textFields.firstObject;
+//            NSLog(@"customizedMsgLabel: %@", customizedMsgLabel.text);
+//        }
+//    }];
+//    [alertController addAction:sendAction];
     
     MRAlertItem *coinItem = [MRAlertItem actionWithTitle:@"Super Star" titleImage:[UIImage imageNamed:@"fresh"] value:@"1000" valueImage:[UIImage imageNamed:@"icRewardsDiamond"]];
     [alertController addItem:coinItem];
 
     MRAlertItem *diamondItem = [MRAlertItem actionWithTitle:@"DJ" titleImage:[UIImage imageNamed:@"Newbie"] value:@"10" valueImage:[UIImage imageNamed:@"icRewardsCoins"]];
     [alertController addItem:diamondItem];
-    
-    [alertController addItem:diamondItem];
-
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         if (textField) {

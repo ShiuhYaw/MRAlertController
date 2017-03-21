@@ -265,10 +265,13 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 
 - (void)addItem:(MRAlertItem *)item {
     
-    if (!self.mutableItems) {
-        self.mutableItems = [NSMutableArray array];
+    if (self.style == MRAlertControllerStyleAlertCustom) {
+        
+        if (!self.mutableItems) {
+            self.mutableItems = [NSMutableArray array];
+        }
+        [self.mutableItems addObject:item];
     }
-    [self.mutableItems addObject:item];
 }
 
 - (void)addTextFieldWithConfigurationHandler:(void (^ __nullable)(UITextField *textField))configurationHandler {
@@ -471,8 +474,8 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     [self configureInterfaceWithStype:self.preferredStyle];
     [self.actionCollectionView registerNib:[UINib nibWithNibName:@"MRAlertActionCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"MRAlertActionCollectionViewCell"];
     [self.customCollectionView registerNib:[UINib nibWithNibName:@"MRAlertCustomCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"MRAlertCustomCollectionViewCell"];
-//    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object: nil];
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object: nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -482,27 +485,38 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     self.titleLabel.text = self.title;
     self.messageLabel.text = self.message;
 
-    if (self.configurationHandler && self.alertTextField) {
+    if (self.style == MRAlertControllerStyleAlertTextField || self.style == MRAlertControllerStyleAlertImageTextField) {
         
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardDidShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardDidHideNotification object:nil];
-
-        [self.alertTextField becomeFirstResponder];
-        [self.mutableTextFields addObject:self.alertTextField];
-        self.configurationHandler(self.alertTextField);
+        if (self.configurationHandler && self.alertTextField) {
+            
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardDidShowNotification object:nil];
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardDidHideNotification object:nil];
+            
+            [self.alertTextField becomeFirstResponder];
+            [self.mutableTextFields addObject:self.alertTextField];
+            self.configurationHandler(self.alertTextField);
+        }
     }
-    if (self.imageConfigurationHandler && self.imageView) {
+    if (self.style == MRAlertControllerStyleAlertImage || self.style == MRAlertControllerStyleAlertImageTextField ) {
         
-        self.imageConfigurationHandler(self.imageView);
+        if (self.imageConfigurationHandler && self.imageView) {
+            
+            self.imageConfigurationHandler(self.imageView);
+        }
     }
-    if (self.mutableActions && self.mutableActions.count > 0) {
+    if (self.style == MRAlertControllerStyleAlertCustom ) {
         
-        [self.actionCollectionView reloadData];
+        if (self.mutableItems && self.mutableItems.count > 0) {
+            
+            [self.customCollectionView reloadData];
+        }
     }
-    if (self.mutableItems && self.mutableItems.count > 0) {
-        
-        [self.customCollectionView reloadData];
+    if (!self.mutableActions || self.mutableActions.count < 1) {
+        self.mutableActions = @[
+                                [MRAlertAction actionWithTitle:@"OK" handler:^(MRAlertAction * _Nonnull action) { }]
+                                ].mutableCopy;
     }
+    [self.actionCollectionView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -525,11 +539,10 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
         [self.mutableItems removeAllObjects];
         self.mutableItems = nil;
     }
-
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:self];
-//    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:self];
+    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
 }
 
 - (void)keyboardShow:(NSNotification *)notification {
@@ -705,6 +718,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
         cell.tag = indexPath.row;
         return cell;
     }
+    
     MRAlertActionCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MRAlertActionCollectionViewCell" forIndexPath:indexPath];
     
     __weak __typeof(self)weakSelf = self;
