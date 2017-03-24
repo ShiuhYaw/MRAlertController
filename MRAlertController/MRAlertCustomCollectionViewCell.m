@@ -7,6 +7,10 @@
 //
 
 #import "MRAlertCustomCollectionViewCell.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/UIImage+GIF.h>
+#import <SDWebImage/UIImage+MultiFormat.h>
+
 #define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double)568) < DBL_EPSILON)
 
 @interface MRAlertCustomCollectionViewCell()
@@ -50,9 +54,33 @@
     self.titleLabel.text = titleString;
 }
 
-- (void)setTitleImage:(UIImage *)titleImage {
+- (void)setTitleImage:(id)titleImage {
     
-    self.titleImageView.image = titleImage;
+    if ([titleImage isKindOfClass:[UIImage class]]) {
+        self.titleImageView.image = titleImage;
+    }
+    if ([titleImage isKindOfClass:[NSString class]]) {
+        UIImageView * thumbnail = [[UIImageView alloc] init];
+        [thumbnail sd_setImageWithURL:[NSURL URLWithString:titleImage] placeholderImage:nil options:SDWebImageProgressiveDownload completed:^(UIImage * image, NSError * error,SDImageCacheType cachedType, NSURL * imageURL){
+            if(image){
+                self.titleImageView.image = image;
+                [self.titleImageView reloadInputViews];
+            }
+        }];
+    }
+    if ([titleImage isKindOfClass:[NSURL class]]) {
+        UIImageView * thumbnail = [[UIImageView alloc] init];
+        [thumbnail sd_setImageWithURL:titleImage placeholderImage:nil options:SDWebImageProgressiveDownload completed:^(UIImage * image, NSError * error,SDImageCacheType cachedType, NSURL * imageURL){
+            if(image){
+                [thumbnail setImage:image];
+                self.titleImageView.image = image;
+                [self.titleImageView reloadInputViews];
+            }
+        }];
+    }
+    if ([titleImage isKindOfClass:[NSData class]]) {
+        self.titleImageView.image = [UIImage imageWithData:titleImage];
+    }
 }
 
 - (void)setRewardTitleString:(NSString *)rewardTitleString {
@@ -60,8 +88,32 @@
     self.rewardTitleLabel.text = rewardTitleString;
 }
 
-- (void)setRewardImage:(UIImage *)rewardImage {
+- (void)setRewardImage:(id)rewardImage {
     
-    self.rewardImageView.image = rewardImage;
+    if ([rewardImage isKindOfClass:[UIImage class]]) {
+        self.rewardImageView.image = rewardImage;
+    }
+    if ([rewardImage isKindOfClass:[NSString class]]) {
+        UIImageView * thumbnail = [[UIImageView alloc] init];
+        [thumbnail sd_setImageWithURL:[NSURL URLWithString:rewardImage] placeholderImage:nil options:SDWebImageProgressiveDownload completed:^(UIImage * image, NSError * error,SDImageCacheType cachedType, NSURL * imageURL){
+            if(image){
+                self.rewardImageView.image = image;
+                [self.rewardImageView reloadInputViews];
+            }
+        }];
+    }
+    if ([rewardImage isKindOfClass:[NSURL class]]) {
+        UIImageView * thumbnail = [[UIImageView alloc] init];
+        [thumbnail sd_setImageWithURL:rewardImage placeholderImage:nil options:SDWebImageProgressiveDownload completed:^(UIImage * image, NSError * error,SDImageCacheType cachedType, NSURL * imageURL){
+            if(image){
+                [thumbnail setImage:image];
+                self.rewardImageView.image = image;
+                [self.rewardImageView reloadInputViews];
+            }
+        }];
+    }
+    if ([rewardImage isKindOfClass:[NSData class]]) {
+        self.rewardImageView.image = [UIImage imageWithData:rewardImage];
+    }
 }
 @end

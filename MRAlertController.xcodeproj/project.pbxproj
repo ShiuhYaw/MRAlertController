@@ -19,10 +19,12 @@
 		9810E9471E7136D500B6ABA0 /* MRAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9810E9451E7136D500B6ABA0 /* MRAlertController.m */; };
 		9810E9481E7136D500B6ABA0 /* MRAlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9810E9461E7136D500B6ABA0 /* MRAlertController.xib */; };
 		9810E94E1E72523E00B6ABA0 /* UIButton+Style.m in Sources */ = {isa = PBXBuildFile; fileRef = 9810E94D1E72523E00B6ABA0 /* UIButton+Style.m */; };
+		9877BE361E85160700C550C6 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 9877BE351E85160700C550C6 /* Podfile */; };
 		988D59471E779EC40044490A /* MRAlertActionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 988D59451E779EC40044490A /* MRAlertActionCollectionViewCell.m */; };
 		988D59481E779EC40044490A /* MRAlertActionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 988D59461E779EC40044490A /* MRAlertActionCollectionViewCell.xib */; };
 		988D59511E77D19F0044490A /* MRAlertCustomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 988D594F1E77D19F0044490A /* MRAlertCustomCollectionViewCell.m */; };
 		988D59521E77D19F0044490A /* MRAlertCustomCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 988D59501E77D19F0044490A /* MRAlertCustomCollectionViewCell.xib */; };
+		B0B2439351ACF5AD0D828447 /* libPods-MRAlertController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4BF2268F9DEC80601012506 /* libPods-MRAlertController.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,12 +68,16 @@
 		9810E9461E7136D500B6ABA0 /* MRAlertController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MRAlertController.xib; sourceTree = "<group>"; };
 		9810E94C1E72523E00B6ABA0 /* UIButton+Style.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Style.h"; sourceTree = "<group>"; };
 		9810E94D1E72523E00B6ABA0 /* UIButton+Style.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Style.m"; sourceTree = "<group>"; };
+		9877BE351E85160700C550C6 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		988D59441E779EC40044490A /* MRAlertActionCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAlertActionCollectionViewCell.h; sourceTree = "<group>"; };
 		988D59451E779EC40044490A /* MRAlertActionCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRAlertActionCollectionViewCell.m; sourceTree = "<group>"; };
 		988D59461E779EC40044490A /* MRAlertActionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MRAlertActionCollectionViewCell.xib; sourceTree = "<group>"; };
 		988D594E1E77D19F0044490A /* MRAlertCustomCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAlertCustomCollectionViewCell.h; sourceTree = "<group>"; };
 		988D594F1E77D19F0044490A /* MRAlertCustomCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRAlertCustomCollectionViewCell.m; sourceTree = "<group>"; };
 		988D59501E77D19F0044490A /* MRAlertCustomCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MRAlertCustomCollectionViewCell.xib; sourceTree = "<group>"; };
+		D537325B597A84046C7A591A /* Pods-MRAlertController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MRAlertController.release.xcconfig"; path = "Pods/Target Support Files/Pods-MRAlertController/Pods-MRAlertController.release.xcconfig"; sourceTree = "<group>"; };
+		E4BF2268F9DEC80601012506 /* libPods-MRAlertController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MRAlertController.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCAF43F37A9984529A475FCD /* Pods-MRAlertController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MRAlertController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MRAlertController/Pods-MRAlertController.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0B2439351ACF5AD0D828447 /* libPods-MRAlertController.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,10 +109,13 @@
 		9810E8FD1E712EF200B6ABA0 = {
 			isa = PBXGroup;
 			children = (
+				9877BE351E85160700C550C6 /* Podfile */,
 				9810E9081E712EF200B6ABA0 /* MRAlertController */,
 				9810E9221E712EF200B6ABA0 /* MRAlertControllerTests */,
 				9810E92D1E712EF200B6ABA0 /* MRAlertControllerUITests */,
 				9810E9071E712EF200B6ABA0 /* Products */,
+				EEA157565D2C86BC0A87BDFA /* Pods */,
+				C95CDD71651347C09E58CF36 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,10 +139,10 @@
 				9810E9461E7136D500B6ABA0 /* MRAlertController.xib */,
 				988D59441E779EC40044490A /* MRAlertActionCollectionViewCell.h */,
 				988D59451E779EC40044490A /* MRAlertActionCollectionViewCell.m */,
+				988D59461E779EC40044490A /* MRAlertActionCollectionViewCell.xib */,
 				988D594E1E77D19F0044490A /* MRAlertCustomCollectionViewCell.h */,
 				988D594F1E77D19F0044490A /* MRAlertCustomCollectionViewCell.m */,
 				988D59501E77D19F0044490A /* MRAlertCustomCollectionViewCell.xib */,
-				988D59461E779EC40044490A /* MRAlertActionCollectionViewCell.xib */,
 				9810E90F1E712EF200B6ABA0 /* ViewController.h */,
 				9810E9101E712EF200B6ABA0 /* ViewController.m */,
 				9810E9121E712EF200B6ABA0 /* Main.storyboard */,
@@ -174,6 +184,23 @@
 			path = MRAlertControllerUITests;
 			sourceTree = "<group>";
 		};
+		C95CDD71651347C09E58CF36 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E4BF2268F9DEC80601012506 /* libPods-MRAlertController.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EEA157565D2C86BC0A87BDFA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FCAF43F37A9984529A475FCD /* Pods-MRAlertController.debug.xcconfig */,
+				D537325B597A84046C7A591A /* Pods-MRAlertController.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -181,9 +208,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9810E9331E712EF200B6ABA0 /* Build configuration list for PBXNativeTarget "MRAlertController" */;
 			buildPhases = (
+				08065571C1EEB9E5327BB756 /* [CP] Check Pods Manifest.lock */,
 				9810E9021E712EF200B6ABA0 /* Sources */,
 				9810E9031E712EF200B6ABA0 /* Frameworks */,
 				9810E9041E712EF200B6ABA0 /* Resources */,
+				510B3A38A210A7AE74252F39 /* [CP] Embed Pods Frameworks */,
+				81D94354AFF36734F4D877F3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -288,6 +318,7 @@
 				9810E9481E7136D500B6ABA0 /* MRAlertController.xib in Resources */,
 				9810E9161E712EF200B6ABA0 /* Assets.xcassets in Resources */,
 				9810E9141E712EF200B6ABA0 /* Main.storyboard in Resources */,
+				9877BE361E85160700C550C6 /* Podfile in Resources */,
 				988D59521E77D19F0044490A /* MRAlertCustomCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,6 +338,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		08065571C1EEB9E5327BB756 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		510B3A38A210A7AE74252F39 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MRAlertController/Pods-MRAlertController-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		81D94354AFF36734F4D877F3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MRAlertController/Pods-MRAlertController-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9810E9021E712EF200B6ABA0 /* Sources */ = {
@@ -467,6 +546,7 @@
 		};
 		9810E9341E712EF200B6ABA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCAF43F37A9984529A475FCD /* Pods-MRAlertController.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6FE3NQT9SX;
@@ -479,6 +559,7 @@
 		};
 		9810E9351E712EF200B6ABA0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D537325B597A84046C7A591A /* Pods-MRAlertController.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6FE3NQT9SX;

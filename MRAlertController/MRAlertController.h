@@ -40,13 +40,13 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MRAlertAction : NSObject <NSCopying>
 
 NS_CLASS_AVAILABLE_IOS(8_0) @interface MRAlertItem : NSObject <NSCopying>
 
-+ (instancetype)actionWithTitle:(NSString *)title titleImage:(UIImage *)titleImg value:(NSString *)value valueImage:(UIImage *)valueImg;
++ (instancetype)actionWithTitle:(NSString *)title titleImage:(id)titleImg value:(NSString *)value valueImage:(id)valueImg;
 + (instancetype)actionWithTitle:(nullable NSString *)title value:(nullable NSString *)value titleImage:(nullable UIImage *)image style:(MRAlertValueStyle)style;
 + (instancetype)actionWithTitle:(nullable NSString *)title value:(nullable NSString *)value style:(MRAlertValueStyle)style;
 
-@property (nullable, nonatomic, readonly) UIImage *titleImage;
+@property (nullable, nonatomic, readonly) id titleImage;
 @property (nullable, nonatomic, readonly) NSString *title;
-@property (nullable, nonatomic, readonly) UIImage *valueImage;
+@property (nullable, nonatomic, readonly) id valueImage;
 @property (nullable, nonatomic, readonly) NSString *value;
 @property (nonatomic, readonly) MRAlertValueStyle style;
 @end

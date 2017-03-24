@@ -12,6 +12,7 @@
 #import "MRAlertActionCollectionViewCell.h"
 #import "MRAlertCustomCollectionViewCell.h"
 
+
 #define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double)568) < DBL_EPSILON)
 #define CUSTOM_COLLECTION_HEIGHT @(49)
 #define COLLECTION_HEIGHT @(49)
@@ -60,9 +61,9 @@ typedef void (^Handler)(MRAlertAction *action);
 
 @interface MRAlertItem()
 
-@property (strong, nonatomic) UIImage *titleImg;
+@property (strong, nonatomic) id titleImg;
 @property (strong, nonatomic) NSString *titleString;
-@property (strong, nonatomic) UIImage *valueImg;
+@property (strong, nonatomic) id valueImg;
 @property (strong, nonatomic) NSString *valueString;
 @property (assign, nonatomic) MRAlertValueStyle valueStyle;
 
@@ -70,13 +71,13 @@ typedef void (^Handler)(MRAlertAction *action);
 
 @implementation MRAlertItem
 
-+ (instancetype)actionWithTitle:(NSString *)title titleImage:(UIImage *)titleImg value:(NSString *)value valueImage:(UIImage *)valueImg {
++ (instancetype)actionWithTitle:(NSString *)title titleImage:(id)titleImg value:(NSString *)value valueImage:(id)valueImg {
 
     MRAlertItem *alertItem = [[MRAlertItem alloc] init];
     alertItem.titleImg = titleImg;
     alertItem.titleString = title;
-    alertItem.valueImg = valueImg;
     alertItem.valueString = value;
+    alertItem.valueImg = valueImg;
     alertItem.valueStyle = MRAlertValueStyleNone;
     return alertItem;
 }
@@ -113,7 +114,7 @@ typedef void (^Handler)(MRAlertAction *action);
     return alertItem;
 }
 
-- (UIImage *)titleImage {
+- (id)titleImage {
     
     return self.titleImg;
 }
@@ -128,7 +129,7 @@ typedef void (^Handler)(MRAlertAction *action);
     return self.valueString;
 }
 
-- (UIImage *)valueImage {
+- (id)valueImage {
     
     return self.valueImg;
 }
@@ -217,7 +218,6 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertActionViewTrailingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertActionViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertActionViewHeightConstraint;
-
 
 #pragma mark -- Alert Action Collection View Contraints
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertActionCollectionViewHeightConstraint;
@@ -522,6 +522,9 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 - (void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
+    [self.actionCollectionView reloadData];
+    [self.customCollectionView reloadData];
+
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

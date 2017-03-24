@@ -37,26 +37,27 @@
                                                                    message:@"You earned these rewards\nbased on last week performance"
                                                             preferredStyle:MRAlertControllerStyleAlertCustom];
     
-//    MRAlertAction *cancelAction = [MRAlertAction actionWithTitle:@"Claim" handler:^(MRAlertAction * _Nonnull action) {
-//        if (action) {
-//            NSLog(@"%@ Action", action.title);
-//        }
-//    }];
-//    [alertController addAction:cancelAction];
-//    MRAlertAction *sendAction = [MRAlertAction actionWithTitle:@"My Level" handler:^(MRAlertAction * _Nonnull action) {
-//        if (action) {
-//            UITextField *customizedMsgLabel = alertController.textFields.firstObject;
-//            NSLog(@"customizedMsgLabel: %@", customizedMsgLabel.text);
-//        }
-//    }];
-//    [alertController addAction:sendAction];
+    MRAlertAction *cancelAction = [MRAlertAction actionWithTitle:@"Claim" handler:^(MRAlertAction * _Nonnull action) {
+        if (action) {
+            NSLog(@"%@ Action", action.title);
+        }
+    }];
+    [alertController addAction:cancelAction];
+    MRAlertAction *sendAction = [MRAlertAction actionWithTitle:@"My Level" handler:^(MRAlertAction * _Nonnull action) {
+        if (action) {
+            UITextField *customizedMsgLabel = alertController.textFields.firstObject;
+            NSLog(@"customizedMsgLabel: %@", customizedMsgLabel.text);
+        }
+    }];
+    [alertController addAction:sendAction];
     
-    MRAlertItem *coinItem = [MRAlertItem actionWithTitle:@"Super Star" titleImage:[UIImage imageNamed:@"fresh"] value:@"1000" valueImage:[UIImage imageNamed:@"icRewardsDiamond"]];
+    MRAlertItem *coinItem = [MRAlertItem actionWithTitle:@"Super Star" titleImage:[NSURL URLWithString:@"https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/86.png"] value:@"1000" valueImage:[NSURL URLWithString:@"https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/86.png"]];
     [alertController addItem:coinItem];
 
-    MRAlertItem *diamondItem = [MRAlertItem actionWithTitle:@"DJ" titleImage:[UIImage imageNamed:@"Newbie"] value:@"10" valueImage:[UIImage imageNamed:@"icRewardsCoins"]];
+    MRAlertItem *diamondItem = [MRAlertItem actionWithTitle:@"DJ" titleImage:[NSURL URLWithString:@"https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/86.png"] value:@"10" valueImage:[NSURL URLWithString:@"https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/86.png"]];
     [alertController addItem:diamondItem];
     
+    /*
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         if (textField) {
             textField.placeholder = @"Something cool!";
@@ -68,7 +69,7 @@
             imageView.image = [UIImage imageNamed:@"icPrivilege"];
         }
     }];
-    
+    */
     [self presentViewController:alertController animated:false completion:^{
         
     }];
