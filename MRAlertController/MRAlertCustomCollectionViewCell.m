@@ -69,23 +69,18 @@
         [self.activityIndicatorView stopAnimating];
     }
     if ([titleImage isKindOfClass:[NSString class]]) {
-        UIImageView * thumbnail = [[UIImageView alloc] init];
-        [thumbnail sd_setImageWithURL:[NSURL URLWithString:titleImage] placeholderImage:nil options:SDWebImageProgressiveDownload completed:^(UIImage * image, NSError * error,SDImageCacheType cachedType, NSURL * imageURL){
+        __weak typeof(self) weak = self;
+        [self.titleImageView sd_setImageWithURL:[NSURL URLWithString:titleImage] placeholderImage:nil options:SDWebImageProgressiveDownload completed:^(UIImage * image, NSError * error,SDImageCacheType cachedType, NSURL * imageURL){
             if(image){
-                self.titleImageView.image = image;
-                [self.titleImageView reloadInputViews];
-                [self.activityIndicatorView stopAnimating];
+                [weak.activityIndicatorView stopAnimating];
             }
         }];
     }
     if ([titleImage isKindOfClass:[NSURL class]]) {
-        UIImageView * thumbnail = [[UIImageView alloc] init];
-        [thumbnail sd_setImageWithURL:titleImage placeholderImage:nil options:SDWebImageProgressiveDownload completed:^(UIImage * image, NSError * error,SDImageCacheType cachedType, NSURL * imageURL){
+        __weak typeof(self) weak = self;
+        [self.titleImageView sd_setImageWithURL:titleImage placeholderImage:nil options:SDWebImageProgressiveDownload completed:^(UIImage * image, NSError * error,SDImageCacheType cachedType, NSURL * imageURL){
             if(image){
-                [thumbnail setImage:image];
-                self.titleImageView.image = image;
-                [self.titleImageView reloadInputViews];
-                [self.activityIndicatorView stopAnimating];
+                [weak.activityIndicatorView stopAnimating];
             }
         }];
     }
@@ -107,23 +102,18 @@
         [self.rewardActivityIndicatorView stopAnimating];
     }
     if ([rewardImage isKindOfClass:[NSString class]]) {
-        UIImageView * thumbnail = [[UIImageView alloc] init];
-        [thumbnail sd_setImageWithURL:[NSURL URLWithString:rewardImage] placeholderImage:nil options:SDWebImageProgressiveDownload completed:^(UIImage * image, NSError * error,SDImageCacheType cachedType, NSURL * imageURL){
+        __weak typeof(self) weak = self;
+        [self.rewardImageView sd_setImageWithURL:[NSURL URLWithString:rewardImage] placeholderImage:nil options:SDWebImageProgressiveDownload completed:^(UIImage * image, NSError * error,SDImageCacheType cachedType, NSURL * imageURL){
             if(image){
-                self.rewardImageView.image = image;
-                [self.rewardImageView reloadInputViews];
-                [self.rewardActivityIndicatorView stopAnimating];
+                [weak.rewardActivityIndicatorView stopAnimating];
             }
         }];
     }
     if ([rewardImage isKindOfClass:[NSURL class]]) {
-        UIImageView * thumbnail = [[UIImageView alloc] init];
-        [thumbnail sd_setImageWithURL:rewardImage placeholderImage:nil options:SDWebImageProgressiveDownload completed:^(UIImage * image, NSError * error,SDImageCacheType cachedType, NSURL * imageURL){
+        __weak typeof(self) weak = self;
+        [self.rewardImageView sd_setImageWithURL:rewardImage placeholderImage:nil options:SDWebImageProgressiveDownload completed:^(UIImage * image, NSError * error,SDImageCacheType cachedType, NSURL * imageURL){
             if(image){
-                [thumbnail setImage:image];
-                self.rewardImageView.image = image;
-                [self.rewardImageView reloadInputViews];
-                [self.rewardActivityIndicatorView stopAnimating];
+                [weak.rewardActivityIndicatorView stopAnimating];
             }
         }];
     }
@@ -140,6 +130,12 @@
     }
     if (self.rewardImage) {
         self.rewardImage = nil;
+    }
+    if (self.titleString) {
+        self.titleString = nil;
+    }
+    if (self.rewardTitleString) {
+        self.rewardTitleString = nil;
     }
 }
 @end

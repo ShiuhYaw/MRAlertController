@@ -71,6 +71,7 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MRAlertController : UIViewController
 @property (nullable, nonatomic, copy) NSString *message;
 
 @property (nonatomic, readonly) MRAlertControllerStyle preferredStyle;
+@property (nonatomic, readonly) BOOL isDismissedWithAction;
 
 @end
 

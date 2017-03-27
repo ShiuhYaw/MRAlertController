@@ -38,7 +38,8 @@
 - (IBAction)cellButtonDidTapped:(UIButton *)sender {
     
     if (self.selectHandler) {
-        self.selectHandler(self);
+        __weak typeof(self) weak = self;
+        self.selectHandler(weak);
     }
 }
 

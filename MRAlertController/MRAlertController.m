@@ -170,6 +170,8 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 @property (weak, nonatomic) IBOutlet UICollectionView *customCollectionView;
 
 @property (assign, nonatomic) MRAlertControllerStyle style;
+@property (assign, nonatomic) BOOL isDismissedAction;
+
 @property (assign, nonatomic) BOOL isKeyboardShown;
 #pragma mark -- Alert View Contraints
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertViewCenterYConstraint;
@@ -452,6 +454,11 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     return self.style;
 }
 
+- (BOOL)isDismissedWithAction {
+    
+    return self.isDismissedAction;
+}
+
 - (NSArray<UITextField *> *)textFields {
     
     return [self.mutableTextFields copy];
@@ -471,6 +478,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    self.isDismissedAction = NO;
     [self configureInterfaceWithStype:self.preferredStyle];
     [self.actionCollectionView registerNib:[UINib nibWithNibName:@"MRAlertActionCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"MRAlertActionCollectionViewCell"];
     [self.customCollectionView registerNib:[UINib nibWithNibName:@"MRAlertCustomCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"MRAlertCustomCollectionViewCell"];
@@ -568,14 +576,16 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
         CGRect frame = self.view.bounds;
         CGSize frameSize = frame.size;
         CGFloat newFrameHeight = (frameSize.height / 2) - (frameSize.height - size.height) / 2;
+        __weak typeof(self) weak = self;
         [UIView animateWithDuration:1 animations:^{
-            self.alertViewCenterYConstraint.constant = self.alertViewCenterYConstraint.constant - newFrameHeight;
-            [self.alertView layoutIfNeeded];
+            weak.alertViewCenterYConstraint.constant = weak.alertViewCenterYConstraint.constant - newFrameHeight;
+            [weak.alertView layoutIfNeeded];
         }];
     } else {
+        __weak typeof(self) weak = self;
         [UIView animateWithDuration:1 animations:^{
-            self.alertViewCenterYConstraint.constant = self.constant;
-            [self.alertView layoutIfNeeded];
+            weak.alertViewCenterYConstraint.constant = weak.constant;
+            [weak.alertView layoutIfNeeded];
         }];
     }
 }
@@ -616,6 +626,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 
 - (IBAction)dismissButtonDidTapped:(UIButton *)sender {
     
+    self.isDismissedAction = YES;
     self.alertViewCenterYConstraint.constant = self.constant;
     [self.alertTextField resignFirstResponder];
     [self dismissViewControllerAnimated:false completion:^{
@@ -727,7 +738,8 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     __weak __typeof(self)weakSelf = self;
     cell.selectHandler = ^(UICollectionViewCell * _Nonnull cell) {
         
-        MRAlertAction *alertAction = self.mutableActions[cell.tag];
+        weakSelf.isDismissedAction = NO;
+        MRAlertAction *alertAction = weakSelf.mutableActions[cell.tag];
         alertAction.handler(alertAction);
         [weakSelf dismissViewControllerAnimated:false completion:^{
             

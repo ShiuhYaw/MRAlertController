@@ -70,6 +70,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="20i-22-ZKp">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="dismissButtonDidTapped:" destination="-1" eventType="touchUpInside" id="Uxm-uU-cfR"/>
+                    </connections>
+                </button>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4ah-hJ-Fk8">
                     <rect key="frame" x="35" y="221.66666666666663" width="345" height="294"/>
                     <subviews>
@@ -245,11 +252,15 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="J2N-Nm-0vM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="5Rh-mN-31M"/>
+                <constraint firstItem="20i-22-ZKp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="6Kr-T3-sOq"/>
                 <constraint firstAttribute="trailing" secondItem="J2N-Nm-0vM" secondAttribute="trailing" id="B4W-bw-gE9"/>
+                <constraint firstAttribute="trailing" secondItem="20i-22-ZKp" secondAttribute="trailing" id="C5h-Hf-56v"/>
                 <constraint firstItem="4ah-hJ-Fk8" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="KAN-kv-hvY"/>
                 <constraint firstAttribute="trailing" secondItem="4ah-hJ-Fk8" secondAttribute="trailing" priority="750" constant="15" id="Nhq-vw-mfa"/>
                 <constraint firstItem="4ah-hJ-Fk8" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="NtZ-b1-bHB"/>
                 <constraint firstAttribute="bottom" secondItem="J2N-Nm-0vM" secondAttribute="bottom" id="PYH-gm-oZo"/>
+                <constraint firstAttribute="bottom" secondItem="20i-22-ZKp" secondAttribute="bottom" id="dAy-NJ-cGK"/>
+                <constraint firstItem="20i-22-ZKp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="gsp-gP-KV4"/>
                 <constraint firstItem="J2N-Nm-0vM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="i4O-qk-Dvz"/>
                 <constraint firstItem="4ah-hJ-Fk8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" priority="750" constant="15" id="lmb-QP-lhN"/>
             </constraints>
