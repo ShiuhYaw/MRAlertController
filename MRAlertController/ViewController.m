@@ -23,7 +23,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     
     [super viewDidAppear:animated];
-    [self alert];
 
 }
 - (IBAction)alertDidTapped:(UIButton *)sender {

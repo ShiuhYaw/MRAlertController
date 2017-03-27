@@ -8,7 +8,7 @@
 
 #import "MRAlertActionCollectionViewCell.h"
 #import <UIKit/UIKit.h>
-#import "UIColor+Hex.m"
+#import "UIColor+Hex.h"
 #import "UIButton+Style.h"
 
 @interface MRAlertActionCollectionViewCell ()

@@ -24,7 +24,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V80-v8-Unn">
                                 <rect key="frame" x="0.0" y="8" width="130" height="48"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Newbie" translatesAutoresizingMaskIntoConstraints="NO" id="0X1-Cu-9Nc">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0X1-Cu-9Nc">
                                         <rect key="frame" x="5" y="3" width="52" height="42"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="52" id="lvF-0r-anm"/>
@@ -39,10 +39,15 @@
                                         <color key="textColor" red="0.44313725490196076" green="0.44313725490196076" blue="0.44313725490196076" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="cEp-4A-bHD">
+                                        <rect key="frame" x="21" y="14" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="130" id="BWj-7z-3e3"/>
+                                    <constraint firstItem="cEp-4A-bHD" firstAttribute="centerY" secondItem="0X1-Cu-9Nc" secondAttribute="centerY" id="CqO-YJ-Exf"/>
+                                    <constraint firstItem="cEp-4A-bHD" firstAttribute="centerX" secondItem="0X1-Cu-9Nc" secondAttribute="centerX" id="XXD-m8-2Oq"/>
                                     <constraint firstAttribute="bottom" secondItem="hQh-oY-QAo" secondAttribute="bottom" constant="3" id="Yuf-EL-XZX"/>
                                     <constraint firstAttribute="bottom" secondItem="0X1-Cu-9Nc" secondAttribute="bottom" constant="3" id="aKR-uZ-qry"/>
                                     <constraint firstItem="0X1-Cu-9Nc" firstAttribute="top" secondItem="V80-v8-Unn" secondAttribute="top" constant="3" id="biq-ld-sKt"/>
@@ -56,12 +61,15 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y55-kJ-cg7">
                                 <rect key="frame" x="145" y="7.5" width="130" height="48"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="icRewardsDiamond" translatesAutoresizingMaskIntoConstraints="NO" id="Ay5-Ts-xwZ">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ay5-Ts-xwZ">
                                         <rect key="frame" x="5" y="3" width="52" height="42"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="52" id="XLo-vG-q3J"/>
                                         </constraints>
                                     </imageView>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="IAK-pV-ogv">
+                                        <rect key="frame" x="21" y="13.5" width="20" height="20"/>
+                                    </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="150" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lwU-p5-VcB">
                                         <rect key="frame" x="63" y="3" width="61" height="42"/>
                                         <constraints>
@@ -77,8 +85,10 @@
                                     <constraint firstAttribute="height" constant="48" id="BRm-1R-H5j"/>
                                     <constraint firstAttribute="bottom" secondItem="Ay5-Ts-xwZ" secondAttribute="bottom" constant="3" id="Ble-OE-Tyi"/>
                                     <constraint firstAttribute="width" constant="130" id="FvI-q9-6yL"/>
+                                    <constraint firstItem="IAK-pV-ogv" firstAttribute="centerY" secondItem="Ay5-Ts-xwZ" secondAttribute="centerY" id="M9k-kP-Xeh"/>
                                     <constraint firstItem="Ay5-Ts-xwZ" firstAttribute="top" secondItem="y55-kJ-cg7" secondAttribute="top" constant="3" id="UGQ-Hk-hW2"/>
                                     <constraint firstItem="lwU-p5-VcB" firstAttribute="leading" secondItem="Ay5-Ts-xwZ" secondAttribute="trailing" constant="6" id="Upw-CL-NJh"/>
+                                    <constraint firstItem="IAK-pV-ogv" firstAttribute="centerX" secondItem="Ay5-Ts-xwZ" secondAttribute="centerX" id="Vgg-sj-5FT"/>
                                     <constraint firstAttribute="trailing" secondItem="lwU-p5-VcB" secondAttribute="trailing" constant="6" id="WrN-qH-MoN"/>
                                     <constraint firstItem="Ay5-Ts-xwZ" firstAttribute="leading" secondItem="y55-kJ-cg7" secondAttribute="leading" constant="5" id="ZAA-9E-2W1"/>
                                     <constraint firstItem="lwU-p5-VcB" firstAttribute="top" secondItem="y55-kJ-cg7" secondAttribute="top" constant="3" id="fft-Hq-SN8"/>
@@ -104,6 +114,8 @@
             </constraints>
             <size key="customSize" width="278" height="50"/>
             <connections>
+                <outlet property="activityIndicatorView" destination="cEp-4A-bHD" id="YNv-M9-eYP"/>
+                <outlet property="rewardActivityIndicatorView" destination="IAK-pV-ogv" id="XHc-DY-lZX"/>
                 <outlet property="rewardImageView" destination="Ay5-Ts-xwZ" id="Vlr-5c-i1m"/>
                 <outlet property="rewardTitleLabel" destination="lwU-p5-VcB" id="mJE-6m-UHE"/>
                 <outlet property="rewardView" destination="y55-kJ-cg7" id="ZOT-5E-2t4"/>
@@ -121,8 +133,4 @@
             <point key="canvasLocation" x="-80" y="53.5"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="Newbie" width="49" height="33"/>
-        <image name="icRewardsDiamond" width="52" height="42"/>
-    </resources>
 </document>
