@@ -54,6 +54,8 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MRAlertItem : NSObject <NSCopying>
 
 NS_CLASS_AVAILABLE_IOS(8_0) @interface MRAlertController : UIViewController
 
++ (instancetype)alertWithTitle:(nullable NSString *)title message:(nullable NSString *)message preferredStyle:(MRAlertControllerStyle)preferredStyle dismissHandler:(void (^ __nullable)(BOOL isDismissedWithAction))dimissHandler;
+
 + (instancetype)alertWithTitle:(nullable NSString *)title message:(nullable NSString *)message preferredStyle:(MRAlertControllerStyle)preferredStyle;
 
 - (void)addAction:(MRAlertAction *)action;

@@ -34,7 +34,10 @@
     
     MRAlertController *alertController = [MRAlertController alertWithTitle:@"Claim Rewards"
                                                                    message:@"You earned these rewards\nbased on last week performance"
-                                                            preferredStyle:MRAlertControllerStyleAlertCustom];
+                                                            preferredStyle:MRAlertControllerStyleAlertCustom
+                                                            dismissHandler:^(BOOL isDismissedWithAction) {
+                                                                NSLog(@"isDismissedWithAction %@", @(isDismissedWithAction));
+                                                            }];
     
     MRAlertAction *cancelAction = [MRAlertAction actionWithTitle:@"Claim" handler:^(MRAlertAction * _Nonnull action) {
         if (action) {

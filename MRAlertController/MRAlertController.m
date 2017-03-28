@@ -152,6 +152,7 @@ typedef void (^Handler)(MRAlertAction *action);
 
 typedef void (^ConfigurationHandler)(UITextField *textField);
 typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
+typedef void (^Dismissed)(BOOL isDismissedWithAction);
 
 @interface MRAlertController () <UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -235,6 +236,7 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 @property (strong, nonatomic) NSMutableArray<MRAlertItem *> *mutableItems;
 @property (nonatomic, copy, nullable) ConfigurationHandler configurationHandler;
 @property (nonatomic, copy, nullable) ImageConfigurationHandler imageConfigurationHandler;
+@property (nonatomic, copy, nullable) Dismissed dismissHandler;
 
 - (void)configureInterfaceWithStype:(MRAlertControllerStyle)style;
 
@@ -245,6 +247,18 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 @synthesize title;
 @synthesize message;
 @synthesize textFields;
+
++ (instancetype)alertWithTitle:(nullable NSString *)title message:(nullable NSString *)message preferredStyle:(MRAlertControllerStyle)preferredStyle dismissHandler:(void (^ __nullable)(BOOL isDismissedWithAction))dimissHandler {
+    
+    MRAlertController *controller = [[MRAlertController alloc]initWithNibName:NSStringFromClass([MRAlertController class]) bundle:[NSBundle mainBundle]];
+    controller.title = title;
+    controller.message = message;
+    controller.style = preferredStyle;
+    controller.dismissHandler = dimissHandler;
+    controller.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    controller.view.backgroundColor = [UIColor clearColor];
+    return controller;
+}
 
 + (instancetype)alertWithTitle:(nullable NSString *)title message:(nullable NSString *)message preferredStyle:(MRAlertControllerStyle)preferredStyle {
     
@@ -629,8 +643,11 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
     self.isDismissedAction = YES;
     self.alertViewCenterYConstraint.constant = self.constant;
     [self.alertTextField resignFirstResponder];
+    __weak typeof(self) weak = self;
     [self dismissViewControllerAnimated:false completion:^{
-        
+        if (weak.dismissHandler) {
+            weak.dismissHandler(weak.isDismissedWithAction);
+        }
     }];
 }
 
@@ -742,7 +759,9 @@ typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
         MRAlertAction *alertAction = weakSelf.mutableActions[cell.tag];
         alertAction.handler(alertAction);
         [weakSelf dismissViewControllerAnimated:false completion:^{
-            
+            if (weakSelf.dismissHandler) {
+                weakSelf.dismissHandler(weakSelf.isDismissedWithAction);
+            }
         }];
     };
     cell.tag = indexPath.row;
