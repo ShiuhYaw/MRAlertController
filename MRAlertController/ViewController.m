@@ -34,7 +34,7 @@
     
     MRAlertController *alertController = [MRAlertController alertWithTitle:@"Claim Rewards"
                                                                    message:@"You earned these rewards\nbased on last week performance"
-                                                            preferredStyle:MRAlertControllerStyleAlertCustom
+                                                            preferredStyle:MRAlertControllerStyleAlertTextField
                                                             dismissHandler:^(BOOL isDismissedWithAction) {
                                                                 NSLog(@"isDismissedWithAction %@", @(isDismissedWithAction));
                                                             }];
@@ -59,13 +59,13 @@
     MRAlertItem *diamondItem = [MRAlertItem actionWithTitle:@"DJ" titleImage:[NSURL URLWithString:@"https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/86.png"] value:@"10" valueImage:[NSURL URLWithString:@"https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/86.png"]];
     [alertController addItem:diamondItem];
     
-    /*
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         if (textField) {
             textField.placeholder = @"Something cool!";
         }
     }];
     
+    /*
     [alertController addImageViewWithConfigurationHandler:^(UIImageView * _Nonnull imageView) {
         if (imageView) {
             imageView.image = [UIImage imageNamed:@"icPrivilege"];

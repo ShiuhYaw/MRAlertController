@@ -511,9 +511,12 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
         
         if (self.configurationHandler && self.alertTextField) {
             
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardDidShowNotification object:nil];
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardDidHideNotification object:nil];
+            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
             
+            self.alertView.hidden = true;
             [self.alertTextField becomeFirstResponder];
             [self.mutableTextFields addObject:self.alertTextField];
             self.configurationHandler(self.alertTextField);
@@ -564,8 +567,11 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
         [self.mutableItems removeAllObjects];
         self.mutableItems = nil;
     }
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:self];
     [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
 }
@@ -582,25 +588,39 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
     [self moveAlertView:notification];
 }
 
+- (void)keyboardWillChangeFrame:(NSNotification *)notification {
+    
+    self.isKeyboardShown = true;
+    [self moveAlertView:notification];
+}
+
 - (void)moveAlertView:(NSNotification *)notification {
     
+    self.alertView.hidden = false;
+
     if (self.isKeyboardShown) {
         NSDictionary *userInfo = notification.userInfo;
-        CGSize size = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+        CGSize size = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
         CGRect frame = self.view.bounds;
         CGSize frameSize = frame.size;
-        CGFloat newFrameHeight = (frameSize.height / 2) - (frameSize.height - size.height) / 2;
-        __weak typeof(self) weak = self;
-        [UIView animateWithDuration:1 animations:^{
-            weak.alertViewCenterYConstraint.constant = weak.alertViewCenterYConstraint.constant - newFrameHeight;
-            [weak.alertView layoutIfNeeded];
-        }];
+        CGFloat newFrameHeight = ((frameSize.height/ 2) - (frameSize.height - size.height) / 2);
+        [UIView animateWithDuration:[userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]
+                              delay:0
+                            options:[[notification userInfo][UIKeyboardAnimationCurveUserInfoKey] intValue] << 16
+                         animations:^{
+                         } completion: ^(BOOL finished) {
+                             self.alertViewCenterYConstraint.constant = self.constant - newFrameHeight;
+                         }];
+
     } else {
-        __weak typeof(self) weak = self;
-        [UIView animateWithDuration:1 animations:^{
-            weak.alertViewCenterYConstraint.constant = weak.constant;
-            [weak.alertView layoutIfNeeded];
-        }];
+        NSDictionary *userInfo = notification.userInfo;
+        [UIView animateWithDuration:[userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]
+                              delay:0
+                            options:[[notification userInfo][UIKeyboardAnimationCurveUserInfoKey] intValue] << 16
+                         animations:^{
+                         } completion:^(BOOL finished) {
+                             self.alertViewCenterYConstraint.constant = self.constant;
+                         }];
     }
 }
 
