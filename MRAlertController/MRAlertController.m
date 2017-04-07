@@ -7,16 +7,17 @@
 //
 
 #import "MRAlertController.h"
-#import "UIColor+Hex.h"
 #import "UIButton+Style.h"
 #import "MRAlertActionCollectionViewCell.h"
 #import "MRAlertCustomCollectionViewCell.h"
-
+#import "MRAlertSingleItemCollectionViewCell.h"
+#import "UIColor+Hex.h"
 
 #define IS_IPHONE_5 (fabs((double)[[UIScreen mainScreen] bounds].size.height - (double)568) < DBL_EPSILON)
-#define CUSTOM_COLLECTION_HEIGHT @(49)
+#define DOUBLE_COLLECTION_HEIGHT @(49)
+#define SINGLE_COLLECTION_HEIGHT @(59)
 #define COLLECTION_HEIGHT @(49)
-#define CUSTOM_COLLECTION_SPACING @(14)
+#define DOUBLE_COLLECTION_SPACING @(14)
 #define COLLECTION_SPACING @(0.5)
 #define TEXTFIELD_LIMIT @(51)
 
@@ -65,7 +66,7 @@ typedef void (^Handler)(MRAlertAction *action);
 @property (strong, nonatomic) NSString *titleString;
 @property (strong, nonatomic) id valueImg;
 @property (strong, nonatomic) NSString *valueString;
-@property (assign, nonatomic) MRAlertValueStyle valueStyle;
+@property (assign, nonatomic) MRAlertItemStyle itemStyle;
 
 @end
 
@@ -78,29 +79,16 @@ typedef void (^Handler)(MRAlertAction *action);
     alertItem.titleString = title;
     alertItem.valueString = value;
     alertItem.valueImg = valueImg;
-    alertItem.valueStyle = MRAlertValueStyleNone;
+    alertItem.itemStyle = MRAlertItemStyleDouble;
     return alertItem;
 }
 
-+ (instancetype)actionWithTitle:(NSString *)title value:(NSString *)value titleImage:(UIImage *)titleImg style:(MRAlertValueStyle)style {
-    
-    MRAlertItem *alertItem = [[MRAlertItem alloc] init];
++ (instancetype)actionWithTitle:(NSString *)title titleImage:(id)titleImg style:(MRAlertItemStyle)style  {
+
+    MRAlertItem*alertItem = [[MRAlertItem alloc] init];
     alertItem.titleImg = titleImg;
     alertItem.titleString = title;
-    alertItem.valueImg = nil;
-    alertItem.valueString = value;
-    alertItem.valueStyle = style;
-    return alertItem;
-}
-
-+ (instancetype)actionWithTitle:(NSString *)title value:(NSString *)value style:(MRAlertValueStyle)style {
-    
-    MRAlertItem *alertItem = [[MRAlertItem alloc] init];
-    alertItem.titleImg = nil;
-    alertItem.titleString = title;
-    alertItem.valueImg = nil;
-    alertItem.valueString = value;
-    alertItem.valueStyle = style;
+    alertItem.itemStyle = style;
     return alertItem;
 }
 
@@ -134,9 +122,9 @@ typedef void (^Handler)(MRAlertAction *action);
     return self.valueImg;
 }
 
-- (MRAlertValueStyle)style {
+- (MRAlertItemStyle)style {
     
-    return self.valueStyle;
+    return self.itemStyle;
 }
 
 - (void)dealloc {
@@ -152,6 +140,7 @@ typedef void (^Handler)(MRAlertAction *action);
 
 typedef void (^ConfigurationHandler)(UITextField *textField);
 typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
+typedef void (^TitleImageConfigurationHandler)(UIImageView *imageView);
 typedef void (^Dismissed)(BOOL isDismissedWithAction);
 
 @interface MRAlertController () <UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -159,6 +148,7 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
 @property (assign, nonatomic) CGFloat constant;
 @property (weak, nonatomic) IBOutlet UIView *alertView;
 @property (weak, nonatomic) IBOutlet UIView *titleView;
+@property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIView *customView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -180,6 +170,9 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertViewTrailingContraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertViewLeadingConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertViewWidthConstraint;
+
+#pragma mark -- Alert Title Image View Contraints
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertTitleImageViewBottomConstraint;
 
 #pragma mark -- Alert Title View Contraints
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *alertTitleViewTopConstraint;
@@ -236,6 +229,7 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
 @property (strong, nonatomic) NSMutableArray<MRAlertItem *> *mutableItems;
 @property (nonatomic, copy, nullable) ConfigurationHandler configurationHandler;
 @property (nonatomic, copy, nullable) ImageConfigurationHandler imageConfigurationHandler;
+@property (nonatomic, copy, nullable) TitleImageConfigurationHandler titleImageConfigurationHandler;
 @property (nonatomic, copy, nullable) Dismissed dismissHandler;
 
 - (void)configureInterfaceWithStype:(MRAlertControllerStyle)style;
@@ -281,7 +275,7 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
 
 - (void)addItem:(MRAlertItem *)item {
     
-    if (self.style == MRAlertControllerStyleAlertCustom) {
+    if (self.style == MRAlertControllerStyleAlertCustom || self.style == MRAlertControllerStyleAlertCustomTitleImage) {
         
         if (!self.mutableItems) {
             self.mutableItems = [NSMutableArray array];
@@ -320,10 +314,19 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
     self.imageConfigurationHandler = configurationHandler;
 }
 
+- (void)addTitleImageViewWithConfigurationHandler:(void (^ __nullable)(UIImageView *imageVie))configurationHandler {
+    
+    if (self.style != MRAlertControllerStyleAlertCustomTitleImage) {
+        
+        configurationHandler(nil);
+        return;
+    }
+    self.titleImageConfigurationHandler = configurationHandler;
+}
+
 - (void)configureInterfaceWithStype:(MRAlertControllerStyle)style {
     
     self.constant = self.alertViewCenterYConstraint.constant;
-    
     switch (self.preferredStyle) {
         case MRAlertControllerStyleAlert:
             self.customCollectionView.hidden = true;
@@ -434,6 +437,39 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
             self.alertCustomCollectionViewTopConstraint.priority = 999;
             self.alertCustomCollectionViewBottomConstraint.priority = 999;
             self.alertCustomCollectionViewHeightConstraint.priority = 999;
+            
+            if (self.title == nil) {
+                self.alertTitleLableTopConstraint.constant = 0;
+            }
+            if (self.title.length < 1) {
+                self.alertTitleLableTopConstraint.constant = 0;
+            }
+            if (self.message == nil) {
+                self.alertImageViewMessageViewBottomConstraint.constant = 0;
+            }
+            if (self.message.length < 1) {
+                self.alertImageViewMessageViewBottomConstraint.constant = 0;
+            }
+            break;
+        case MRAlertControllerStyleAlertCustomTitleImage:
+            self.alertView.layer.borderWidth = 2;
+            self.alertView.layer.borderColor = [UIColor colorWithHexString:@"ec2c7a"].CGColor;
+            self.customCollectionView.hidden = false;
+            self.imageView.hidden = true;
+            self.alertTextView.hidden = true;
+            self.alertTitleViewImageViewBottomConstraint.priority = 999;
+            self.alertTitleViewMessageViewBottomConstraint.priority = 250;
+            self.alertImageViewMessageViewBottomConstraint.priority = 999;
+            self.alertImageViewMessageViewBottomConstraint.constant = 15;
+            self.alertMessageViewActionViewBottomConstraint.priority = 999;
+            self.alertMessageViewTextFieldViewBottomConstaint.priority = 250;
+            self.alertTextFieldViewBottomConstraint.priority = 250;
+            self.alertImageTopConstraint.priority = 250;
+            self.alertImageBottomConstraint.priority = 250;
+            self.alertImageViewCustomeViewBottomConstraint.priority = 250;
+            self.alertCustomCollectionViewTopConstraint.priority = 999;
+            self.alertCustomCollectionViewBottomConstraint.priority = 999;
+            self.alertCustomCollectionViewHeightConstraint.priority = 999;
 
             if (self.title == nil) {
                 self.alertTitleLableTopConstraint.constant = 0;
@@ -494,10 +530,10 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
     [super viewDidLoad];
     self.isDismissedAction = NO;
     [self configureInterfaceWithStype:self.preferredStyle];
-    [self.actionCollectionView registerNib:[UINib nibWithNibName:@"MRAlertActionCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"MRAlertActionCollectionViewCell"];
-    [self.customCollectionView registerNib:[UINib nibWithNibName:@"MRAlertCustomCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"MRAlertCustomCollectionViewCell"];
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object: nil];
+    
+    [self.actionCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MRAlertActionCollectionViewCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:NSStringFromClass([MRAlertActionCollectionViewCell class])];
+    [self.customCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MRAlertCustomCollectionViewCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:NSStringFromClass([MRAlertCustomCollectionViewCell class])];
+    [self.customCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([MRAlertSingleItemCollectionViewCell class]) bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:NSStringFromClass([MRAlertSingleItemCollectionViewCell class])];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -511,15 +547,14 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
         
         if (self.configurationHandler && self.alertTextField) {
             
+            [self.mutableTextFields addObject:self.alertTextField];
+            self.configurationHandler(self.alertTextField);
+            self.alertView.hidden = YES;
+            
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardWillShowNotification object:nil];
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardDidShowNotification object:nil];
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardDidHideNotification object:nil];
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
-            
-            self.alertView.hidden = true;
-            [self.alertTextField becomeFirstResponder];
-            [self.mutableTextFields addObject:self.alertTextField];
-            self.configurationHandler(self.alertTextField);
         }
     }
     if (self.style == MRAlertControllerStyleAlertImage || self.style == MRAlertControllerStyleAlertImageTextField ) {
@@ -536,6 +571,13 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
             [self.customCollectionView reloadData];
         }
     }
+    if (self.style == MRAlertControllerStyleAlertCustomTitleImage) {
+        
+        if (self.titleImageConfigurationHandler && self.titleImageView) {
+            
+            self.titleImageConfigurationHandler(self.titleImageView);
+        }
+    }
     if (!self.mutableActions || self.mutableActions.count < 1) {
         self.mutableActions = @[
                                 [MRAlertAction actionWithTitle:@"OK" handler:^(MRAlertAction * _Nonnull action) { }]
@@ -549,7 +591,22 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
     [super viewDidAppear:animated];
     [self.actionCollectionView reloadData];
     [self.customCollectionView reloadData];
-
+    if (self.style == MRAlertControllerStyleAlertTextField || self.style == MRAlertControllerStyleAlertImageTextField) {
+        
+        if (self.configurationHandler && self.alertTextField) {
+            
+            self.alertView.hidden = NO;
+            [self.alertTextField becomeFirstResponder];
+        }
+    }
+    
+    if (self.style == MRAlertControllerStyleAlertCustomTitleImage) {
+        
+        self.alertTitleImageViewBottomConstraint.constant = self.titleImageView.frame.size.height / 2;
+        self.alertTitleLableTopConstraint.constant = (self.titleImageView.frame.size.height / 2) + 14.5;
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissAlertController:) name:MRDismissAlertController object:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -572,8 +629,12 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:self];
-    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MRDismissAlertController object:nil];
+}
+
+- (void)dismissAlertController:(NSNotification *)notification {
+    
+    [self dismissButtonDidTapped:nil];
 }
 
 - (void)keyboardShow:(NSNotification *)notification {
@@ -596,8 +657,6 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
 
 - (void)moveAlertView:(NSNotification *)notification {
     
-    self.alertView.hidden = false;
-
     if (self.isKeyboardShown) {
         NSDictionary *userInfo = notification.userInfo;
         CGSize size = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
@@ -610,9 +669,10 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
                          animations:^{
                          } completion: ^(BOOL finished) {
                              self.alertViewCenterYConstraint.constant = self.constant - newFrameHeight;
+                             [self.alertView layoutIfNeeded];
                          }];
-
-    } else {
+    }
+    else {
         NSDictionary *userInfo = notification.userInfo;
         [UIView animateWithDuration:[userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]
                               delay:0
@@ -620,6 +680,7 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
                          animations:^{
                          } completion:^(BOOL finished) {
                              self.alertViewCenterYConstraint.constant = self.constant;
+                             [self.alertView layoutIfNeeded];
                          }];
     }
 }
@@ -660,15 +721,19 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
 
 - (IBAction)dismissButtonDidTapped:(UIButton *)sender {
     
-    self.isDismissedAction = YES;
+    self.isDismissedAction = NO;
     self.alertViewCenterYConstraint.constant = self.constant;
     [self.alertTextField resignFirstResponder];
-    __weak typeof(self) weak = self;
+    
     [self dismissViewControllerAnimated:false completion:^{
-        if (weak.dismissHandler) {
-            weak.dismissHandler(weak.isDismissedWithAction);
+        if (self.dismissHandler) {
+            self.dismissHandler(self.isDismissedWithAction);
         }
     }];
+}
+
+- (void)dealloc {
+    
 }
 
 #pragma mark - UITextFieldDelegate
@@ -748,34 +813,36 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if ([collectionView isEqual:self.customCollectionView]) {
-        MRAlertCustomCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MRAlertCustomCollectionViewCell" forIndexPath:indexPath];
-        cell.titleString = self.mutableItems[indexPath.row].title;
-        cell.rewardTitleString = self.mutableItems[indexPath.row].value;
-        cell.titleImage = self.mutableItems[indexPath.row].titleImage;
-
-        switch (self.mutableItems[indexPath.row].style) {
-            case MRAlertValueStyleCoin:
-                cell.rewardImage = [UIImage imageNamed:@"icRewardsCoins"];
+        
+        MRAlertItem *item = self.mutableItems[indexPath.row];
+        switch (item.style) {
+            case MRAlertItemStyleDouble: {
+                MRAlertCustomCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MRAlertCustomCollectionViewCell class]) forIndexPath:indexPath];
+                cell.titleString = self.mutableItems[indexPath.row].title;
+                cell.rewardTitleString = self.mutableItems[indexPath.row].value;
+                cell.titleImage = self.mutableItems[indexPath.row].titleImage;
+                cell.rewardImage = self.mutableItems[indexPath.row].valueImage;
+                return cell;
+            }
                 break;
-            case MRAlertValueStyleDiamond:
-                cell.rewardImage = [UIImage imageNamed:@"icRewardsDiamond"];
+            case MRAlertItemStyleSingle: {
+                MRAlertSingleItemCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MRAlertSingleItemCollectionViewCell class]) forIndexPath:indexPath];
+                cell.titleString = self.mutableItems[indexPath.row].title;
+                cell.titleImage = self.mutableItems[indexPath.row].titleImage;
+                return cell;
+            }
                 break;
             default:
-                if (self.mutableItems[indexPath.row].valueImage) {
-                    cell.rewardImage = self.mutableItems[indexPath.row].valueImage;
-                }
                 break;
         }
-        cell.tag = indexPath.row;
-        return cell;
     }
     
-    MRAlertActionCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MRAlertActionCollectionViewCell" forIndexPath:indexPath];
+    MRAlertActionCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MRAlertActionCollectionViewCell class]) forIndexPath:indexPath];
     
     __weak __typeof(self)weakSelf = self;
     cell.selectHandler = ^(UICollectionViewCell * _Nonnull cell) {
         
-        weakSelf.isDismissedAction = NO;
+        weakSelf.isDismissedAction = YES;
         MRAlertAction *alertAction = weakSelf.mutableActions[cell.tag];
         alertAction.handler(alertAction);
         [weakSelf dismissViewControllerAnimated:false completion:^{
@@ -796,11 +863,30 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
     
     if ([collectionView isEqual:self.customCollectionView]) {
         
-        CGRect rect = self.customView.bounds;
-        CGFloat width = rect.size.width;
-        NSUInteger rows = self.mutableItems.count;
-        self.alertCustomCollectionViewHeightConstraint.constant = (CUSTOM_COLLECTION_HEIGHT.floatValue * (rows)) + (CUSTOM_COLLECTION_SPACING.floatValue * (rows - 1));
-        return CGSizeMake(width, CUSTOM_COLLECTION_HEIGHT.floatValue);
+        MRAlertItem *item = self.mutableItems[indexPath.row];
+        switch (item.style) {
+            case MRAlertItemStyleDouble: {
+                
+                CGRect rect = self.customView.bounds;
+                CGFloat width = rect.size.width;
+                NSUInteger rows = self.mutableItems.count;
+                self.alertCustomCollectionViewHeightConstraint.constant = (DOUBLE_COLLECTION_HEIGHT.floatValue * (rows)) + (DOUBLE_COLLECTION_HEIGHT.floatValue * (rows - 1));
+                return CGSizeMake(width, DOUBLE_COLLECTION_HEIGHT.floatValue);
+            }
+                break;
+            case MRAlertItemStyleSingle: {
+                
+                CGRect rect = self.customView.bounds;
+                CGFloat width = rect.size.width;
+                NSUInteger rows = self.mutableItems.count;
+                self.alertCustomCollectionViewHeightConstraint.constant = (SINGLE_COLLECTION_HEIGHT.floatValue * (rows));
+                return CGSizeMake(width, SINGLE_COLLECTION_HEIGHT.floatValue);
+            }
+                break;
+            default:
+                break;
+        }
+
     }
     CGRect rect = collectionView.bounds;
     CGFloat width = rect.size.width;
@@ -831,18 +917,48 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     
     if ([collectionView isEqual:self.customCollectionView]) {
-        if IS_IPHONE_5 {
-            return CUSTOM_COLLECTION_SPACING.floatValue / 4;
+        MRAlertItem *item = self.mutableItems[section];
+        switch (item.style) {
+            case MRAlertItemStyleDouble: {
+                if IS_IPHONE_5 {
+                    return DOUBLE_COLLECTION_SPACING.floatValue / 4;
+                }
+                return DOUBLE_COLLECTION_SPACING.floatValue;
+            }
+                break;
+            case MRAlertItemStyleSingle: {
+                return COLLECTION_SPACING.floatValue;
+            }
+                break;
+            default:
+                break;
         }
-        return CUSTOM_COLLECTION_SPACING.floatValue;
+
+        if IS_IPHONE_5 {
+            return DOUBLE_COLLECTION_SPACING.floatValue / 4;
+        }
+        return DOUBLE_COLLECTION_SPACING.floatValue;
     }
-    return COLLECTION_SPACING .floatValue;
+    return COLLECTION_SPACING.floatValue;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
     
     if ([collectionView isEqual:self.customCollectionView]) {
-        return CUSTOM_COLLECTION_SPACING.floatValue * 2;
+        MRAlertItem *item = self.mutableItems[section];
+        switch (item.style) {
+            case MRAlertItemStyleDouble: {
+                return DOUBLE_COLLECTION_SPACING.floatValue * 2;
+            }
+                break;
+            case MRAlertItemStyleSingle: {
+                return COLLECTION_SPACING.floatValue;
+            }
+                break;
+            default:
+                break;
+        }
+        return DOUBLE_COLLECTION_SPACING.floatValue * 2;
     }
     return COLLECTION_SPACING.floatValue ;
 }

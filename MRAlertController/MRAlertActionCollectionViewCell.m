@@ -8,8 +8,8 @@
 
 #import "MRAlertActionCollectionViewCell.h"
 #import <UIKit/UIKit.h>
-#import "UIColor+Hex.h"
 #import "UIButton+Style.h"
+#import "UIColor+Hex.h"
 
 @interface MRAlertActionCollectionViewCell ()
 
@@ -38,6 +38,7 @@
 - (IBAction)cellButtonDidTapped:(UIButton *)sender {
     
     if (self.selectHandler) {
+        
         self.selectHandler(self);
     }
 }

@@ -32,46 +32,48 @@
 
 - (void)alert {
     
-    MRAlertController *alertController = [MRAlertController alertWithTitle:@"Claim Rewards"
-                                                                   message:@"You earned these rewards\nbased on last week performance"
-                                                            preferredStyle:MRAlertControllerStyleAlertTextField
+    MRAlertController *alertController = [MRAlertController alertWithTitle:@"Please allow below permissions to use Loops"
+                                                                   message:@""
+                                                            preferredStyle:MRAlertControllerStyleAlertCustom
                                                             dismissHandler:^(BOOL isDismissedWithAction) {
                                                                 NSLog(@"isDismissedWithAction %@", @(isDismissedWithAction));
                                                             }];
     
-    MRAlertAction *cancelAction = [MRAlertAction actionWithTitle:@"Claim" handler:^(MRAlertAction * _Nonnull action) {
+    MRAlertAction *cancelAction = [MRAlertAction actionWithTitle:@"OK" handler:^(MRAlertAction * _Nonnull action) {
         if (action) {
             NSLog(@"%@ Action", action.title);
         }
     }];
     [alertController addAction:cancelAction];
-    MRAlertAction *sendAction = [MRAlertAction actionWithTitle:@"My Level" handler:^(MRAlertAction * _Nonnull action) {
-        if (action) {
-            UITextField *customizedMsgLabel = alertController.textFields.firstObject;
-            NSLog(@"customizedMsgLabel: %@", customizedMsgLabel.text);
-        }
-    }];
-    [alertController addAction:sendAction];
     
-    MRAlertItem *coinItem = [MRAlertItem actionWithTitle:@"Super Star" titleImage:[NSURL URLWithString:@"https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/86.png"] value:@"1000" valueImage:[NSURL URLWithString:@"https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/86.png"]];
-    [alertController addItem:coinItem];
+//    MRAlertItem *coinItem = [MRAlertItem actionWithTitle:@"Super Star" titleImage:[NSURL URLWithString:@"https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/86.png"] value:@"1000" valueImage:[NSURL URLWithString:@"https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/86.png"]];
+//    [alertController addItem:coinItem];
+    
+    MRAlertItem *notificationItem = [MRAlertItem actionWithTitle:@"Enable Notification to receive hosts updates" titleImage:[UIImage imageNamed:@"icEnableNotification"] style:MRAlertItemStyleSingle];
+    [alertController addItem:notificationItem];
 
-    MRAlertItem *diamondItem = [MRAlertItem actionWithTitle:@"DJ" titleImage:[NSURL URLWithString:@"https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/86.png"] value:@"10" valueImage:[NSURL URLWithString:@"https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/86.png"]];
-    [alertController addItem:diamondItem];
-    
+    MRAlertItem *locationItem = [MRAlertItem actionWithTitle:@"Enable Location to locate Live Stream" titleImage:[UIImage imageNamed:@"icEnableLocation"] style:MRAlertItemStyleSingle];
+    [alertController addItem:locationItem];
+
+
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         if (textField) {
             textField.placeholder = @"Something cool!";
         }
     }];
     
-    /*
     [alertController addImageViewWithConfigurationHandler:^(UIImageView * _Nonnull imageView) {
         if (imageView) {
             imageView.image = [UIImage imageNamed:@"icPrivilege"];
         }
     }];
-    */
+    
+    [alertController addTitleImageViewWithConfigurationHandler:^(UIImageView * _Nonnull imageView) {
+        
+        if (imageView) {
+            imageView.image = [UIImage imageNamed:@"icStartlive"];
+        }
+    }];
     [self presentViewController:alertController animated:false completion:^{
         
     }];

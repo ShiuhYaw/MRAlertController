@@ -24,6 +24,10 @@
 		988D59481E779EC40044490A /* MRAlertActionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 988D59461E779EC40044490A /* MRAlertActionCollectionViewCell.xib */; };
 		988D59511E77D19F0044490A /* MRAlertCustomCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 988D594F1E77D19F0044490A /* MRAlertCustomCollectionViewCell.m */; };
 		988D59521E77D19F0044490A /* MRAlertCustomCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 988D59501E77D19F0044490A /* MRAlertCustomCollectionViewCell.xib */; };
+		98A8255C1E9794CF00F6CE29 /* MRAlertSingleItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A8255A1E9794CF00F6CE29 /* MRAlertSingleItemCollectionViewCell.m */; };
+		98A8255D1E9794CF00F6CE29 /* MRAlertSingleItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98A8255B1E9794CF00F6CE29 /* MRAlertSingleItemCollectionViewCell.xib */; };
+		98A825611E97A1E300F6CE29 /* MRAlertCurveActionCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A8255F1E97A1E300F6CE29 /* MRAlertCurveActionCollectionViewCell.m */; };
+		98A825621E97A1E300F6CE29 /* MRAlertCurveActionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98A825601E97A1E300F6CE29 /* MRAlertCurveActionCollectionViewCell.xib */; };
 		B0B2439351ACF5AD0D828447 /* libPods-MRAlertController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4BF2268F9DEC80601012506 /* libPods-MRAlertController.a */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +79,12 @@
 		988D594E1E77D19F0044490A /* MRAlertCustomCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAlertCustomCollectionViewCell.h; sourceTree = "<group>"; };
 		988D594F1E77D19F0044490A /* MRAlertCustomCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRAlertCustomCollectionViewCell.m; sourceTree = "<group>"; };
 		988D59501E77D19F0044490A /* MRAlertCustomCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MRAlertCustomCollectionViewCell.xib; sourceTree = "<group>"; };
+		98A825591E9794CE00F6CE29 /* MRAlertSingleItemCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAlertSingleItemCollectionViewCell.h; sourceTree = "<group>"; };
+		98A8255A1E9794CF00F6CE29 /* MRAlertSingleItemCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRAlertSingleItemCollectionViewCell.m; sourceTree = "<group>"; };
+		98A8255B1E9794CF00F6CE29 /* MRAlertSingleItemCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MRAlertSingleItemCollectionViewCell.xib; sourceTree = "<group>"; };
+		98A8255E1E97A1E300F6CE29 /* MRAlertCurveActionCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAlertCurveActionCollectionViewCell.h; sourceTree = "<group>"; };
+		98A8255F1E97A1E300F6CE29 /* MRAlertCurveActionCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRAlertCurveActionCollectionViewCell.m; sourceTree = "<group>"; };
+		98A825601E97A1E300F6CE29 /* MRAlertCurveActionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MRAlertCurveActionCollectionViewCell.xib; sourceTree = "<group>"; };
 		D537325B597A84046C7A591A /* Pods-MRAlertController.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MRAlertController.release.xcconfig"; path = "Pods/Target Support Files/Pods-MRAlertController/Pods-MRAlertController.release.xcconfig"; sourceTree = "<group>"; };
 		E4BF2268F9DEC80601012506 /* libPods-MRAlertController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MRAlertController.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCAF43F37A9984529A475FCD /* Pods-MRAlertController.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MRAlertController.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MRAlertController/Pods-MRAlertController.debug.xcconfig"; sourceTree = "<group>"; };
@@ -140,9 +150,15 @@
 				988D59441E779EC40044490A /* MRAlertActionCollectionViewCell.h */,
 				988D59451E779EC40044490A /* MRAlertActionCollectionViewCell.m */,
 				988D59461E779EC40044490A /* MRAlertActionCollectionViewCell.xib */,
+				98A8255E1E97A1E300F6CE29 /* MRAlertCurveActionCollectionViewCell.h */,
+				98A8255F1E97A1E300F6CE29 /* MRAlertCurveActionCollectionViewCell.m */,
+				98A825601E97A1E300F6CE29 /* MRAlertCurveActionCollectionViewCell.xib */,
 				988D594E1E77D19F0044490A /* MRAlertCustomCollectionViewCell.h */,
 				988D594F1E77D19F0044490A /* MRAlertCustomCollectionViewCell.m */,
 				988D59501E77D19F0044490A /* MRAlertCustomCollectionViewCell.xib */,
+				98A825591E9794CE00F6CE29 /* MRAlertSingleItemCollectionViewCell.h */,
+				98A8255A1E9794CF00F6CE29 /* MRAlertSingleItemCollectionViewCell.m */,
+				98A8255B1E9794CF00F6CE29 /* MRAlertSingleItemCollectionViewCell.xib */,
 				9810E90F1E712EF200B6ABA0 /* ViewController.h */,
 				9810E9101E712EF200B6ABA0 /* ViewController.m */,
 				9810E9121E712EF200B6ABA0 /* Main.storyboard */,
@@ -314,12 +330,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				9810E9191E712EF200B6ABA0 /* LaunchScreen.storyboard in Resources */,
+				98A825621E97A1E300F6CE29 /* MRAlertCurveActionCollectionViewCell.xib in Resources */,
 				988D59481E779EC40044490A /* MRAlertActionCollectionViewCell.xib in Resources */,
 				9810E9481E7136D500B6ABA0 /* MRAlertController.xib in Resources */,
 				9810E9161E712EF200B6ABA0 /* Assets.xcassets in Resources */,
 				9810E9141E712EF200B6ABA0 /* Main.storyboard in Resources */,
 				9877BE361E85160700C550C6 /* Podfile in Resources */,
 				988D59521E77D19F0044490A /* MRAlertCustomCollectionViewCell.xib in Resources */,
+				98A8255D1E9794CF00F6CE29 /* MRAlertSingleItemCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,11 +412,13 @@
 			files = (
 				988D59471E779EC40044490A /* MRAlertActionCollectionViewCell.m in Sources */,
 				9810E94E1E72523E00B6ABA0 /* UIButton+Style.m in Sources */,
+				98A8255C1E9794CF00F6CE29 /* MRAlertSingleItemCollectionViewCell.m in Sources */,
 				9810E9471E7136D500B6ABA0 /* MRAlertController.m in Sources */,
 				9810E9111E712EF200B6ABA0 /* ViewController.m in Sources */,
 				9810E9431E71300300B6ABA0 /* UIColor+Hex.m in Sources */,
 				9810E90E1E712EF200B6ABA0 /* AppDelegate.m in Sources */,
 				9810E90B1E712EF200B6ABA0 /* main.m in Sources */,
+				98A825611E97A1E300F6CE29 /* MRAlertCurveActionCollectionViewCell.m in Sources */,
 				988D59511E77D19F0044490A /* MRAlertCustomCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

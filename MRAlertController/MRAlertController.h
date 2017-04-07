@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+static NSString * _Nullable const MRDismissAlertController = @"dismissAlertController";
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, MRAlertControllerStyle) {
@@ -17,14 +19,15 @@ typedef NS_ENUM(NSInteger, MRAlertControllerStyle) {
     MRAlertControllerStyleAlertTextField,
     MRAlertControllerStyleAlertImageTextField,
     MRAlertControllerStyleAlertCustom,
+    MRAlertControllerStyleAlertCustomTitleImage
 
 } NS_ENUM_AVAILABLE_IOS(8_0);
 
-typedef NS_ENUM(NSInteger, MRAlertValueStyle) {
+typedef NS_ENUM(NSInteger, MRAlertItemStyle) {
     
-    MRAlertValueStyleNone = 0,
-    MRAlertValueStyleCoin,
-    MRAlertValueStyleDiamond,
+    MRAlertItemStyleNone = 0,
+    MRAlertItemStyleSingle,
+    MRAlertItemStyleDouble
 } NS_ENUM_AVAILABLE_IOS(8_0);
 
 
@@ -41,14 +44,13 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MRAlertAction : NSObject <NSCopying>
 NS_CLASS_AVAILABLE_IOS(8_0) @interface MRAlertItem : NSObject <NSCopying>
 
 + (instancetype)actionWithTitle:(NSString *)title titleImage:(id)titleImg value:(NSString *)value valueImage:(id)valueImg;
-+ (instancetype)actionWithTitle:(nullable NSString *)title value:(nullable NSString *)value titleImage:(nullable UIImage *)image style:(MRAlertValueStyle)style;
-+ (instancetype)actionWithTitle:(nullable NSString *)title value:(nullable NSString *)value style:(MRAlertValueStyle)style;
++ (instancetype)actionWithTitle:(NSString *)title titleImage:(id)titleImg style:(MRAlertItemStyle)style;
 
 @property (nullable, nonatomic, readonly) id titleImage;
 @property (nullable, nonatomic, readonly) NSString *title;
 @property (nullable, nonatomic, readonly) id valueImage;
 @property (nullable, nonatomic, readonly) NSString *value;
-@property (nonatomic, readonly) MRAlertValueStyle style;
+@property (nonatomic, readonly) MRAlertItemStyle style;
 @end
 
 
@@ -66,6 +68,7 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MRAlertController : UIViewController
 
 - (void)addTextFieldWithConfigurationHandler:(void (^ __nullable)(UITextField *textField))configurationHandler;
 - (void)addImageViewWithConfigurationHandler:(void (^ __nullable)(UIImageView *imageVie))configurationHandler;
+- (void)addTitleImageViewWithConfigurationHandler:(void (^ __nullable)(UIImageView *imageVie))configurationHandler;
 
 @property (nullable, nonatomic, readonly) NSArray<UITextField *> *textFields;
 

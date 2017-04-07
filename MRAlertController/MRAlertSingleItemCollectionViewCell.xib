@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MRAlertSingleItemCollectionViewCell" id="gTV-IL-0wX" customClass="MRAlertSingleItemCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="315" height="56"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="315" height="56"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icEnableNotification" translatesAutoresizingMaskIntoConstraints="NO" id="wac-hY-MFT">
+                        <rect key="frame" x="0.0" y="10" width="36" height="36"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="wac-hY-MFT" secondAttribute="height" id="uSr-PU-1uo"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yot-Rw-kZQ">
+                        <rect key="frame" x="55.5" y="0.0" width="239.5" height="56"/>
+                        <string key="text">Enable Notification to receive hosts updates</string>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                        <color key="textColor" red="0.46666666666666667" green="0.46274509803921571" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="8U4-nF-A6L">
+                        <rect key="frame" x="147" y="18" width="20" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </activityIndicatorView>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Yot-Rw-kZQ" firstAttribute="leading" secondItem="wac-hY-MFT" secondAttribute="trailing" constant="19.5" id="D4D-a6-KTi"/>
+                <constraint firstAttribute="bottom" secondItem="wac-hY-MFT" secondAttribute="bottom" constant="10" id="XLD-dS-MZu"/>
+                <constraint firstItem="Yot-Rw-kZQ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Zdo-Yc-yUF"/>
+                <constraint firstAttribute="bottom" secondItem="Yot-Rw-kZQ" secondAttribute="bottom" id="e3X-vb-dRD"/>
+                <constraint firstItem="wac-hY-MFT" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="lXC-iu-7W8"/>
+                <constraint firstAttribute="trailing" secondItem="Yot-Rw-kZQ" secondAttribute="trailing" constant="19.5" id="ls2-WM-47G"/>
+                <constraint firstItem="wac-hY-MFT" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="zGT-mY-t7V"/>
+            </constraints>
+            <size key="customSize" width="243" height="50"/>
+            <connections>
+                <outlet property="activityIndicatorView" destination="8U4-nF-A6L" id="kCl-ct-6kL"/>
+                <outlet property="itemImageView" destination="wac-hY-MFT" id="pH3-Co-J2o"/>
+                <outlet property="itemTitleLabel" destination="Yot-Rw-kZQ" id="kVb-jN-Jwv"/>
+            </connections>
+            <point key="canvasLocation" x="130.5" y="54"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="icEnableNotification" width="36" height="36"/>
+    </resources>
+</document>
