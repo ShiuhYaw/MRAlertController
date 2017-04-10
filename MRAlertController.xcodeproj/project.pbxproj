@@ -72,7 +72,7 @@
 		9810E9461E7136D500B6ABA0 /* MRAlertController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MRAlertController.xib; sourceTree = "<group>"; };
 		9810E94C1E72523E00B6ABA0 /* UIButton+Style.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Style.h"; sourceTree = "<group>"; };
 		9810E94D1E72523E00B6ABA0 /* UIButton+Style.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Style.m"; sourceTree = "<group>"; };
-		9877BE351E85160700C550C6 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		9877BE351E85160700C550C6 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		988D59441E779EC40044490A /* MRAlertActionCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MRAlertActionCollectionViewCell.h; sourceTree = "<group>"; };
 		988D59451E779EC40044490A /* MRAlertActionCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MRAlertActionCollectionViewCell.m; sourceTree = "<group>"; };
 		988D59461E779EC40044490A /* MRAlertActionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MRAlertActionCollectionViewCell.xib; sourceTree = "<group>"; };

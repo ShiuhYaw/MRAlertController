@@ -30,16 +30,25 @@ typedef NS_ENUM(NSInteger, MRAlertItemStyle) {
     MRAlertItemStyleDouble
 } NS_ENUM_AVAILABLE_IOS(8_0);
 
+typedef NS_ENUM(NSInteger, MRAlertActionStyle) {
+    
+    MRAlertActionStyleNone = 0,
+    MRAlertActionStyleHighlightCurve
+} NS_ENUM_AVAILABLE_IOS(8_0);
+
 
 NS_CLASS_AVAILABLE_IOS(8_0) @interface MRAlertAction : NSObject <NSCopying>
 
 + (instancetype)actionWithTitle:(nullable NSString *)title handler:(void (^ __nullable)(MRAlertAction *action))handler;
 
++ (instancetype)actionWithTitle:(nullable NSString *)title titleImage:(nullable id)titleImg style:(MRAlertActionStyle)style handler:(void (^ __nullable)(MRAlertAction *action))handler;
+
+@property (nonatomic, readonly) MRAlertActionStyle style;
 @property (nullable, nonatomic, readonly) NSString *title;
+@property (nullable, nonatomic, readonly) id titleImage;
 @property (nonatomic, getter=isEnabled) BOOL enabled;
 
 @end
-
 
 NS_CLASS_AVAILABLE_IOS(8_0) @interface MRAlertItem : NSObject <NSCopying>
 
@@ -55,6 +64,8 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MRAlertItem : NSObject <NSCopying>
 
 
 NS_CLASS_AVAILABLE_IOS(8_0) @interface MRAlertController : UIViewController
+
++ (instancetype)alertWithTitle:(nullable NSString *)title message:(nullable NSString *)message actionTitle:(nullable NSString *)actionTitle preferredStyle:(MRAlertControllerStyle)preferredStyle dismissHandler:(void (^ __nullable)(BOOL isDismissedWithAction))dimissHandler;
 
 + (instancetype)alertWithTitle:(nullable NSString *)title message:(nullable NSString *)message preferredStyle:(MRAlertControllerStyle)preferredStyle dismissHandler:(void (^ __nullable)(BOOL isDismissedWithAction))dimissHandler;
 
@@ -74,6 +85,7 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MRAlertController : UIViewController
 
 @property (nullable, nonatomic, copy) NSString *title;
 @property (nullable, nonatomic, copy) NSString *message;
+@property (nullable, nonatomic, copy) NSString *actionTitle;
 
 @property (nonatomic, readonly) MRAlertControllerStyle preferredStyle;
 @property (nonatomic, readonly) BOOL isDismissedWithAction;

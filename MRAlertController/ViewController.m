@@ -34,27 +34,35 @@
     
     MRAlertController *alertController = [MRAlertController alertWithTitle:@"Please allow below permissions to use Loops"
                                                                    message:@""
+                                                               actionTitle:@"We need few things to start your Live broadcast"
                                                             preferredStyle:MRAlertControllerStyleAlertCustom
                                                             dismissHandler:^(BOOL isDismissedWithAction) {
                                                                 NSLog(@"isDismissedWithAction %@", @(isDismissedWithAction));
                                                             }];
-    
+    /*
     MRAlertAction *cancelAction = [MRAlertAction actionWithTitle:@"OK" handler:^(MRAlertAction * _Nonnull action) {
         if (action) {
             NSLog(@"%@ Action", action.title);
         }
     }];
     [alertController addAction:cancelAction];
+    */
     
-//    MRAlertItem *coinItem = [MRAlertItem actionWithTitle:@"Super Star" titleImage:[NSURL URLWithString:@"https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/86.png"] value:@"1000" valueImage:[NSURL URLWithString:@"https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/86.png"]];
-//    [alertController addItem:coinItem];
+    MRAlertAction *cameraAction = [MRAlertAction actionWithTitle:@"Enable Camera" titleImage:[UIImage imageNamed:@"icEIcEnableCameraBlack"] style:MRAlertActionStyleHighlightCurve handler:^(MRAlertAction * _Nonnull action) {
+        
+    }];
+    [alertController addAction:cameraAction];
+    
+    MRAlertAction *microphoneAction = [MRAlertAction actionWithTitle:@"Enable Microphone" titleImage:[UIImage imageNamed:@"icEnableMicrophoneBlack"] style:MRAlertActionStyleHighlightCurve handler:^(MRAlertAction * _Nonnull action) {
+        
+    }];
+    [alertController addAction:microphoneAction];
     
     MRAlertItem *notificationItem = [MRAlertItem actionWithTitle:@"Enable Notification to receive hosts updates" titleImage:[UIImage imageNamed:@"icEnableNotification"] style:MRAlertItemStyleSingle];
     [alertController addItem:notificationItem];
 
     MRAlertItem *locationItem = [MRAlertItem actionWithTitle:@"Enable Location to locate Live Stream" titleImage:[UIImage imageNamed:@"icEnableLocation"] style:MRAlertItemStyleSingle];
     [alertController addItem:locationItem];
-
 
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         if (textField) {
