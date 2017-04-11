@@ -77,6 +77,7 @@ NS_CLASS_AVAILABLE_IOS(8_0) @interface MRAlertController : UIViewController
 - (void)addItem:(MRAlertItem *)item;
 @property (nonatomic, readonly) NSArray<MRAlertItem *> *items;
 
+- (void)addCustomAlertWithConfigurationHandler:(void (^ __nullable)(UIView *view))configurationHandler;
 - (void)addTextFieldWithConfigurationHandler:(void (^ __nullable)(UITextField *textField))configurationHandler;
 - (void)addImageViewWithConfigurationHandler:(void (^ __nullable)(UIImageView *imageVie))configurationHandler;
 - (void)addTitleImageViewWithConfigurationHandler:(void (^ __nullable)(UIImageView *imageVie))configurationHandler;

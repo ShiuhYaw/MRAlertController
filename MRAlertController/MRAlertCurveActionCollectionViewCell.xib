@@ -27,6 +27,7 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icEIcEnableCameraBlack" translatesAutoresizingMaskIntoConstraints="NO" id="6xw-DA-khe">
                                         <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                        <color key="tintColor" red="0.92469811440000005" green="0.17064267399999999" blue="0.4794982076" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -70,6 +71,9 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="hideBox" value="YES"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="on" value="NO"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="-1" id="Brd-yd-7fL"/>
+                                </connections>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable Camera" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="or5-LF-KNI">
                                 <rect key="frame" x="57" y="0.0" width="112" height="48"/>

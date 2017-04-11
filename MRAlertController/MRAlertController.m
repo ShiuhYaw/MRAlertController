@@ -164,6 +164,7 @@ typedef void (^Handler)(MRAlertAction *action);
 @end
 
 typedef void (^ConfigurationHandler)(UITextField *textField);
+typedef void (^AlertCustomConfigurationHandler)(UIView *view);
 typedef void (^ActionTitleConfigurationHandler)(UITextField *textField);
 typedef void (^ImageConfigurationHandler)(UIImageView *imageView);
 typedef void (^TitleImageConfigurationHandler)(UIImageView *imageView);
@@ -259,6 +260,7 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
 @property (strong, nonatomic) NSMutableArray<MRAlertAction *> *mutableActions;
 @property (strong, nonatomic) NSMutableArray<MRAlertItem *> *mutableItems;
 
+@property (nonatomic, copy, nullable) AlertCustomConfigurationHandler alertCustomConfigurationHandler;
 @property (nonatomic, copy, nullable) ActionTitleConfigurationHandler actionTitleConfigurationHandler;
 @property (nonatomic, copy, nullable) ConfigurationHandler configurationHandler;
 @property (nonatomic, copy, nullable) ImageConfigurationHandler imageConfigurationHandler;
@@ -331,6 +333,11 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
         }
         [self.mutableItems addObject:item];
     }
+}
+
+- (void)addCustomAlertWithConfigurationHandler:(void (^ __nullable)(UIView *view))configurationHandler {
+
+    self.alertCustomConfigurationHandler = configurationHandler;
 }
 
 - (void)addTextFieldWithConfigurationHandler:(void (^ __nullable)(UITextField *textField))configurationHandler {
@@ -507,8 +514,6 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
             }
             break;
         case MRAlertControllerStyleAlertCustomTitleImage:
-            self.alertView.layer.borderWidth = 2;
-            self.alertView.layer.borderColor = [UIColor colorWithHexString:@"ec2c7a"].CGColor;
             self.customCollectionView.hidden = false;
             self.imageView.hidden = true;
             self.alertTextView.hidden = true;
@@ -639,6 +644,21 @@ typedef void (^Dismissed)(BOOL isDismissedWithAction);
         self.mutableActions = @[
                                 [MRAlertAction actionWithTitle:@"OK" handler:^(MRAlertAction * _Nonnull action) { }]
                                 ].mutableCopy;
+    }
+    
+    if (self.alertCustomConfigurationHandler && self.alertView) {
+        
+        self.alertCustomConfigurationHandler(self.alertView);
+    }
+    
+    if (message.length <= 0) {
+        
+        if (!self.mutableItems) {
+            self.alertMessageViewActionViewBottomConstraint.constant = 15;
+        }
+        if (self.mutableItems.count <= 0) {
+            self.alertMessageViewActionViewBottomConstraint.constant = 15;
+        }
     }
     [self.actionCollectionView reloadData];
 }

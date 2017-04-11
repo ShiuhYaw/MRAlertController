@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "MRAlertController.h"
+#import "UIColor+Hex.h"
 
 @interface ViewController ()
 
@@ -32,10 +33,10 @@
 
 - (void)alert {
     
-    MRAlertController *alertController = [MRAlertController alertWithTitle:@"Please allow below permissions to use Loops"
+    MRAlertController *alertController = [MRAlertController alertWithTitle:@"Go Live"
                                                                    message:@""
                                                                actionTitle:@"We need few things to start your Live broadcast"
-                                                            preferredStyle:MRAlertControllerStyleAlertCustom
+                                                            preferredStyle:MRAlertControllerStyleAlertCustomTitleImage
                                                             dismissHandler:^(BOOL isDismissedWithAction) {
                                                                 NSLog(@"isDismissedWithAction %@", @(isDismissedWithAction));
                                                             }];
@@ -58,12 +59,17 @@
     }];
     [alertController addAction:microphoneAction];
     
-    MRAlertItem *notificationItem = [MRAlertItem actionWithTitle:@"Enable Notification to receive hosts updates" titleImage:[UIImage imageNamed:@"icEnableNotification"] style:MRAlertItemStyleSingle];
-    [alertController addItem:notificationItem];
+//    MRAlertItem *notificationItem = [MRAlertItem actionWithTitle:@"Enable Notification to receive hosts updates" titleImage:[UIImage imageNamed:@"icEnableNotification"] style:MRAlertItemStyleSingle];
+//    [alertController addItem:notificationItem];
+//
+//    MRAlertItem *locationItem = [MRAlertItem actionWithTitle:@"Enable Location to locate Live Stream" titleImage:[UIImage imageNamed:@"icEnableLocation"] style:MRAlertItemStyleSingle];
+//    [alertController addItem:locationItem];
 
-    MRAlertItem *locationItem = [MRAlertItem actionWithTitle:@"Enable Location to locate Live Stream" titleImage:[UIImage imageNamed:@"icEnableLocation"] style:MRAlertItemStyleSingle];
-    [alertController addItem:locationItem];
-
+    [alertController addCustomAlertWithConfigurationHandler:^(UIView * _Nonnull view) {
+        
+        view.backgroundColor = [UIColor colorWithHexString:@"#f7f7f7"];
+    }];
+    
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         if (textField) {
             textField.placeholder = @"Something cool!";
